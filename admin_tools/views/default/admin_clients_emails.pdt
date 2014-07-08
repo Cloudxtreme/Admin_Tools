@@ -1,0 +1,125 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$tabs = array(
+			array('name' => $this->_("AdminToolsPlugin.index.tab_emptycache", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_main/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_countries", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_countries/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_services", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_services/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_clients", true), 'current' => true, 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_clients/")),			
+			array('name' => $this->_("AdminToolsPlugin.index.tab_notes", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_notes/" ))
+		);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.clients.box_title", true));
+		?>
+		<div class="pad">
+			<div class="inner">
+				<div class="links_row">
+					<a class="btn_right email" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_clients/emails/");?>"><span><?php $this->_("AdminToolsPlugin.clients.duplicate_emails");?></span></a>
+					<a class="btn_right username" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_clients/usernames/");?>"><span><?php $this->_("AdminToolsPlugin.clients.duplicate_usernames");?></span></a>
+				</div>
+				<?php		
+				if ($this->Html->ifSet($duplicates)) {
+				$dirname = dirname($_SERVER['SCRIPT_NAME']) . DS . str_replace(ROOTWEBDIR, "", PLUGINDIR);
+				// print_r($duplicates) ;
+				?>
+					<table class="table">
+						<tr class="heading_row">
+							<td><span><?php $this->_("AdminToolsPlugin.clients.email");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.clients.n_duplicated");?></span></td>
+							<td class="last"><span><?php $this->_("AdminToolsPlugin.clients.heading_options");?></span></td>
+						</tr>
+
+						<?php
+						$i = 0 ;
+						foreach ($duplicates as $email => $count) {
+							if ($count["doubles"] > 1 ) {
+								?>
+								
+								<tr class="<?php echo $this->Html->concat(" ", ($i%2 == 1) ? "odd_row" : "", "expand");?>">
+									<td><?php $this->Html->_($email);?></td>
+									<td><?php $this->Html->_($count["doubles"]);?></td>
+									<td></td>
+								</tr>								
+								<tr class="expand_details" id="dupliacted_<?php $this->Html->_($email);?>">
+									<td class="subtable" colspan="7">
+										<div class="group_title_row">
+											<div class="title_row first">
+												<h3><?php $this->_("AdminToolsPlugin.clients.heading_parent_groups"); ?><?php $this->Html->_($email);?></h3>
+											</div>
+																		
+											<table class="table ">
+												<thead>
+													<tr class="heading_row">
+														<td class="fixed_small center border_none"><span class="paymnt_arrow"></span></td>
+														
+														<td><?php $this->_("AdminToolsPlugin.clients.client_id");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.first_name");?> / <?php $this->_("AdminToolsPlugin.clients.last_name");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.address1");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.country");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.date_added");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.status");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.has_service");?></td>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+													$j = 0;
+													foreach ($count["clients"] as $package) {
+													?>
+													<tr class="<?php echo $this->Html->concat(" ", ($j++%2 == 1) ? "odd_row" : "", "");?>" id="dupliacte_<?php $this->Html->_($email);?>">
+														<td style="width:17px;"><div class="handle" style="display:none;"></div></td>
+														
+														<td><a href="<?php echo $this->base_uri . "clients/view/" . $this->Html->_($package["client_id"], true) . "/";?>" ><?php $this->Html->_($package["client_id"]);?></a></td>
+														<td><?php $this->Html->_($package["first_name"]);?> <?php $this->Html->_($package["last_name"]);?></td>
+														<td><?php $this->Html->_($package["address1"]);?></td>
+														<td><?php $this->Html->_($package["country"]);?><img src="<?php echo $dirname . "admin_tools" . DS . "views/default/images/32/" . strtolower($package["country"]) . ".png";?>" /></td>
+														<td><?php $this->Html->_($package["date_added"]);?></td>
+														<td>N/A</td>
+														<td>N/A</td>
+													</tr>
+													<?php
+													}
+													unset($j);
+													?>
+												</tbody>
+											</table>											
+
+										</div>
+									</td>
+								</tr>			
+							<?php
+							}
+							$i++;
+						}
+						?>					
+
+					</table>
+				<?php
+				}
+				else {
+				?>		
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.countries.empty");?>
+						</div>
+					</div>
+				<?php
+				}
+				?>
+				
+			</div>
+		</div>	
+		<?php
+		$this->Widget->end();
+		?>
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".email_info").click(function() {
+			$(this).blestaUpdateRow("<?php echo $this->Html->_($this->base_uri, true) . "services/serviceinfo/";?>" + $(this).next("tr").attr("id").split("_")[1], ".subtable");
+		});
+	});
+</script>		

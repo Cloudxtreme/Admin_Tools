@@ -1,0 +1,47 @@
+		<?php				
+		echo $this->Html->ifSet($message);
+		
+		$tabs = array(
+			array('name' => $this->_("AdminToolsPlugin.index.tab_emptycache", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_main/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_countries", true), 'current' => true, 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_countries/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_services", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_services/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_clients", true),  'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_clients/")),			
+			array('name' => $this->_("AdminToolsPlugin.index.tab_notes", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_notes/" ))
+		);
+		
+		$this->Widget->clear();
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.countries.add.page_title", true));
+		$this->Form->create(null, array('id' => "add_country"));
+		//print_r($countries);
+		$dirname = dirname($_SERVER['SCRIPT_NAME']) . DS . str_replace(ROOTWEBDIR, "", PLUGINDIR);
+		?>
+		<div class="pad">
+			<div class="inner">
+				<table class="table">
+					<tr class="heading_row">		
+						<td><span><?php $this->_("AdminToolsPlugin.countries.flag");?></span></td>
+						<td><span><?php $this->_("AdminToolsPlugin.countries.name");?></span></td>
+						<td><span><?php $this->_("AdminToolsPlugin.countries.alpha2");?></span></td>
+						<td><span><?php $this->_("AdminToolsPlugin.countries.alpha3");?></span></td>
+						<td><span><?php $this->_("AdminToolsPlugin.countries.alt_name");?></span></td>
+					</tr>
+					<tr class="odd_row" >						
+						<td><img src="<?php echo $dirname . "admin_tools" . DS . "views/default/images/32/" . strtolower($countries->alpha2) . ".png";?>" /></td>
+						<td><?php $this->Form->fieldText("name", $this->Html->ifSet($countries->name), array('id' => "name"));?></td>
+						<td><?php echo $this->Html->ifSet($countries->alpha2);?></td>
+						<td><?php $this->Form->fieldText("alpha3", $this->Html->ifSet($countries->alpha3), array('id' => "alpha3"));?></td>
+						<td><?php $this->Form->fieldText("alt_name", $this->Html->ifSet($countries->alt_name), array('id' => "alt_name"));?></td>
+					</tr>
+				</table>
+			</div>
+			<div class="button_row">
+				<a class="btn_right " href="<?php echo $this->base_uri . "plugin/admin_tools/admin_countries/" ;?>"><?php $this->_("AppController.modal.text_close");?></a>
+				<a class="btn_right submit" href=""><?php $this->_("AdminToolsPlugin.countries.edit");?></a>
+			</div>
+		</div>
+		<?php
+		$this->Form->fieldHidden("alpha2", $this->Html->ifSet($countries->alpha2));
+		$this->Form->end();
+		$this->Widget->end();
+		?>

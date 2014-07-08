@@ -1,0 +1,86 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$tabs = array(
+			array('name' => $this->_("AdminToolsPlugin.index.tab_emptycache", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_main/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_countries", true), 'current' => true, 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_countries/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_services", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_services/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_clients", true),  'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_clients/")),			
+			array('name' => $this->_("AdminToolsPlugin.index.tab_notes", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_notes/" ))
+		);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");			
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.countries.page_title", true));
+		//$this->Widget->create($this->_("AdminToolsPlugin.box.page_title", true), array('id'=>"admin_tools"), $this->Html->ifSet($render_section, null));		
+		
+		$dirname = dirname($_SERVER['SCRIPT_NAME']) . DS . str_replace(ROOTWEBDIR, "", PLUGINDIR);
+		
+		?>
+		<div class="pad">
+			<div class="inner">
+				<div class="links_row">
+					<a class="btn_right" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_countries/add/");?>"><span><?php $this->_("AdminToolsPlugin.countries.heading_add");?></span></a>
+					<a class="btn_right countries" href="#"><span><?php $this->_("AdminToolsPlugin.countries.total_countries") ; echo count($countries) ;?></span></a>
+				</div>
+				<?php		
+				if ($this->Html->ifSet($countries)) {
+				?>
+					<table class="table">
+						<tr class="heading_row">
+							<td><span><?php $this->_("AdminToolsPlugin.countries.flag");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.countries.name");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.countries.alpha2");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.countries.alpha3");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.countries.alt_name");?></span></td>
+							<td class="last"><span><?php $this->_("AdminToolsPlugin.countries.heading_options");?></span></td>
+						</tr>
+						<?php
+						for ($i=0; $i<count($countries); $i++) { //  
+						?>
+						<tr class="<?php echo $this->Html->concat(" ", ($i%2 == 1) ? "odd_row" : "");?>">
+							<td><img src="<?php echo $dirname . "admin_tools" . DS . "views/default/images/32/" . strtolower($countries[$i]->alpha2) . ".png";?>" /></td>
+							<td><?php $this->Html->_($countries[$i]->name);?></td>
+							<td><?php $this->Html->_($countries[$i]->alpha2);?></td>
+							<td><?php $this->Html->_($countries[$i]->alpha3);?></td>
+							<td><?php $this->Html->_($countries[$i]->alt_name);?></td>
+							<td>
+								<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_countries/edit/" . $this->Html->ifSet($countries[$i]->alpha2));?>"><?php $this->_("AdminToolsPlugin.countries.edit");?></a>,
+								<?php
+								$this->Form->create($this->base_uri . "plugin/admin_tools/admin_countries/delete/");
+								$this->Form->fieldHidden("alpha2", $this->Html->ifSet($countries[$i]->alpha2));
+								?>
+								<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_countries/delete/" . $this->Html->ifSet($countries[$i]->alpha2) );?>" class="manage" rel="<?php $this->_("AdminToolsPlugin.countries.confirm_delete");?>"><?php $this->_("AdminToolsPlugin.countries.delete");?></a>
+								<?php
+								$this->Form->end();
+								?>
+							</td>
+						</tr>
+						<?php
+						}
+						?>
+					</table>
+				<?php
+				}
+				else {
+				?>		
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.countries.empty");?>
+						</div>
+					</div>
+				<?php
+				}
+				?>
+			</div>
+		</div>
+		<?php
+		$this->Widget->end();
+		?>	
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a.manage[rel]').blestaModalConfirm({base_url: '<?php echo $this->Html->safe($this->base_uri);?>', close: '<?php $this->_("AppController.modal.text_close");?>', submit: true});
+	});
+</script>	

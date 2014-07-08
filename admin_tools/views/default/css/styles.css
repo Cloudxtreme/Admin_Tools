@@ -1,0 +1,11 @@
+/* Admin Tools plugin */
+.common_box .links_row a.service span{background:url(../../../../../vendors/fugue_icons/service-bell--arrow.png) no-repeat 0 50%}
+.common_box .links_row a.invoice span{background:url(../../../../../vendors/fugue_icons/blue-document--arrow.png) no-repeat 0 50%}
+.common_box .links_row a.countries span{background:url(../../../../../vendors/fugue_icons/globe.png) no-repeat 0 50%}
+.common_box .links_row a.orpholan span{background:url(../../../../../vendors/fugue_icons/service-bell--exclamation.png) no-repeat 0 50%}
+.common_box .links_row a.sticky span{background:url(../../../../../vendors/fugue_icons/sticky-notes-pin.png) no-repeat 0 50%}
+.common_box .links_row a.notes span{background:url(../../../../../vendors/fugue_icons/sticky-notes-text.png) no-repeat 0 50%}
+.common_box .links_row a.normal span{background:url(../../../../../vendors/fugue_icons/sticky-notes.png) no-repeat 0 50%}
+.common_box .links_row a.stick span{background:url(../../../../../vendors/fugue_icons/pin--minus.png) no-repeat 0 50%}
+.tabs_row ul li span.notes {background:url(../../../../../vendors/fugue_icons/service-bell--exclamation.png) no-repeat 0 50% }
+
