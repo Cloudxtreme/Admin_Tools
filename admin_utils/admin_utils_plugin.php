@@ -7,10 +7,10 @@
  * @copyright Copyright (c) 2005, Naja7host SARL.
  * @link http://www.naja7host.com/ Naja7host
  */
-class AdminToolsPlugin extends Plugin {
+class AdminUtilsPlugin extends Plugin {
 
 	public function __construct() {
-		Language::loadLang("admin_tools_plugin", null, dirname(__FILE__) . DS . "language" . DS);
+		Language::loadLang("admin_utils_plugin", null, dirname(__FILE__) . DS . "language" . DS);
 		
 		// Load components required by this plugin
 		Loader::loadComponents($this, array("Input"));
@@ -66,7 +66,7 @@ class AdminToolsPlugin extends Plugin {
         return array(
             array(
                 'action' => "nav_secondary_staff",
-                'uri' => "plugin/admin_tools/admin_main/",
+                'uri' => "plugin/admin_utils/admin_main/",
                 'name' => Language::_("AdminToolsPlugin.title", true),
                 'options' => array('parent' => "tools/")
             )

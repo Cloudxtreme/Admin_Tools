@@ -16,7 +16,7 @@ class AdminCountries extends AppController {
         // Require login
         $this->requireLogin();
 
-        Language::loadLang("admin_tools", null, PLUGINDIR . "admin_tools" . DS . "language" . DS);
+        Language::loadLang("admin_utils", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
 		$this->uses(array("Countries", "States"));
 		
         // Set the plugin ID
@@ -28,7 +28,7 @@ class AdminCountries extends AppController {
 		// Restore structure view location of the admin portal
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->structure->view);
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		
 		$this->staff_id = $this->Session->read("blesta_staff_id");
 	
@@ -45,7 +45,7 @@ class AdminCountries extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("countries", $this->Countries->getList());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.countries.page_title", true));
     }
@@ -65,14 +65,14 @@ class AdminCountries extends AppController {
 			
 			if (!($errors =  $this->Countries->errors())) {		
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.countries.add.!success", true), null, false);
-				$this->redirect($this->base_uri . "plugin/admin_tools/admin_countries/edit/" . $this->post['alpha2']);			
+				$this->redirect($this->base_uri . "plugin/admin_utils/admin_countries/edit/" . $this->post['alpha2']);			
 			}			
 			$this->setMessage("error", $errors, false, null, false);
 			$this->set("countries", $vars);
 		}
 		
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.countries.add.page_title", true));
 		//return $this->partial("admin_countries_add", $vars);
 
@@ -92,7 +92,7 @@ class AdminCountries extends AppController {
 			
 			if (!($errors =  $this->Countries->errors())) {		
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.countries.edit.!success", true), null, false);
-				$this->redirect($this->base_uri . "plugin/admin_tools/admin_countries/edit/" . $this->get[0] );			
+				$this->redirect($this->base_uri . "plugin/admin_utils/admin_countries/edit/" . $this->get[0] );			
 			}
 			$vars = (object)$this->post;
 			// $vars->alpha2 = $this->get[0] ; 
@@ -101,7 +101,7 @@ class AdminCountries extends AppController {
 		}
 		
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("countries", $vars);
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.countries.edit.page_title", true));
 		//return $this->partial("countries", $vars);
@@ -124,7 +124,7 @@ class AdminCountries extends AppController {
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.countries.delete.!success", true), null, false);
 		}
 		
-		$this->redirect($this->base_uri . "plugin/admin_tools/admin_countries/"  );	
+		$this->redirect($this->base_uri . "plugin/admin_utils/admin_countries/"  );	
     }		
 }
 

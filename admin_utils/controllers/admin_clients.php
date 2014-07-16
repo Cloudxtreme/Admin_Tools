@@ -16,7 +16,7 @@ class AdminClients extends AppController {
         // Require login
         $this->requireLogin();
 
-        Language::loadLang("admin_tools", null, PLUGINDIR . "admin_tools" . DS . "language" . DS);
+        Language::loadLang("admin_utils", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
 		
         // Set the plugin ID
         $this->plugin_id = (isset($this->get[0]) ? $this->get[0] : null);
@@ -27,11 +27,11 @@ class AdminClients extends AppController {
 		// Restore structure view location of the admin portal
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->structure->view);
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		
 		$this->staff_id = $this->Session->read("blesta_staff_id");	
 		$this->uses(array("users","Contacts"));
-		$this->uses(array("admin_tools.Clients")); // need to check this one !!!!
+		$this->uses(array("admin_utils.Clients")); // need to check this one !!!!
     }
 	
 	/**
@@ -45,7 +45,7 @@ class AdminClients extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("vars", $vars);
 		//$this->set("total_notes", $this->Notes->getNoteListCount());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.clients.page_title", true));		
@@ -62,7 +62,7 @@ class AdminClients extends AppController {
 		// Set the view to render for all actions under this controller		
 		
 		// echo $this->Services->getStatusCount($client_id, $status);
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("duplicates", $this->Clients->GetDuplicatesEmails());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.clients.page_title", true));		
     }
@@ -77,7 +77,7 @@ class AdminClients extends AppController {
 		// Set the view to render for all actions under this controller		
 		
 		// echo $this->Services->getStatusCount($client_id, $status);
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		// $this->set("duplicates", $this->Clients->GetDuplicatesEmails());
 		// $this->structure->set("page_title", Language::_("AdminToolsPlugin.clients.page_title", true));
 		echo $this->outputAsJson($this->view->fetch("admin_clients_emailsinfo"));
@@ -91,7 +91,7 @@ class AdminClients extends AppController {
 		$this->init();
 		
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("duplicates", $this->Clients->GetDuplicatesUsernames());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.clients.page_title", true));		
     }

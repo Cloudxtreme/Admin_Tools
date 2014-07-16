@@ -16,7 +16,7 @@ class AdminNotes extends AppController {
         // Require login
         $this->requireLogin();
 
-        Language::loadLang("admin_tools", null, PLUGINDIR . "admin_tools" . DS . "language" . DS);
+        Language::loadLang("admin_utils", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
 		
         // Set the plugin ID
         $this->plugin_id = (isset($this->get[0]) ? $this->get[0] : null);
@@ -27,11 +27,11 @@ class AdminNotes extends AppController {
 		// Restore structure view location of the admin portal
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->structure->view);
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		
 		$this->staff_id = $this->Session->read("blesta_staff_id");	
 		
-		$this->uses(array("admin_tools.Notes")); // need to check this one !!!!
+		$this->uses(array("admin_utils.Notes")); // need to check this one !!!!
     }
 	
 	/**
@@ -42,7 +42,7 @@ class AdminNotes extends AppController {
 
 	
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("notes", $this->Notes->GetNotes());
 		$this->set("total_notes", $this->Notes->getNoteListCount());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.notes.page_title", true));
@@ -61,7 +61,7 @@ class AdminNotes extends AppController {
 			else
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.notes.delete.!success", true), null, false);
 		
-		$this->redirect($this->base_uri . "plugin/admin_tools/admin_notes/"  );	
+		$this->redirect($this->base_uri . "plugin/admin_utils/admin_notes/"  );	
     }
 	
 	/**
@@ -72,7 +72,7 @@ class AdminNotes extends AppController {
 
 	
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("notes", $this->Notes->getAllStickyNotes());
 		$this->set("total_notes", $this->Notes->getNoteListCount());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.notes.sticky.page_title", true));
@@ -87,7 +87,7 @@ class AdminNotes extends AppController {
 
 	
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("notes", $this->Notes->getAllUnStickyNotes());
 		$this->set("total_notes", $this->Notes->getNoteListCount());
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.notes.unsticky.page_title", true));

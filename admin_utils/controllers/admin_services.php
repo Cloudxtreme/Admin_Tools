@@ -16,7 +16,7 @@ class AdminServices extends AppController {
         // Require login
         $this->requireLogin();
 
-        Language::loadLang("admin_tools", null, PLUGINDIR . "admin_tools" . DS . "language" . DS);
+        Language::loadLang("admin_utils", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
 		
         // Set the plugin ID
         $this->plugin_id = (isset($this->get[0]) ? $this->get[0] : null);
@@ -27,7 +27,7 @@ class AdminServices extends AppController {
 		// Restore structure view location of the admin portal
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->structure->view);
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		
 		$this->staff_id = $this->Session->read("blesta_staff_id");	
     }
@@ -43,7 +43,7 @@ class AdminServices extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("vars", $vars);
     }
 
@@ -58,7 +58,7 @@ class AdminServices extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		// $this->set("vars", $vars);
     }
 	
@@ -73,7 +73,7 @@ class AdminServices extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		// $this->set("vars", $vars);
     }
 
@@ -88,7 +88,7 @@ class AdminServices extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		// $this->set("vars", $vars);
     }
 	
@@ -103,7 +103,7 @@ class AdminServices extends AppController {
 		);
 			
 		// Set the view to render for all actions under this controller		
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		// $this->set("vars", $vars);
     }	
 }

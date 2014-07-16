@@ -2,11 +2,11 @@
 		echo $this->Html->ifSet($message);
 		
 		$tabs = array(
-			array('name' => $this->_("AdminToolsPlugin.index.tab_emptycache", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_main/")),
-			array('name' => $this->_("AdminToolsPlugin.index.tab_countries", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_countries/")),
-			array('name' => $this->_("AdminToolsPlugin.index.tab_services", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_services/")),
-			array('name' => $this->_("AdminToolsPlugin.index.tab_clients", true), 'current' => true, 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_clients/")),			
-			array('name' => $this->_("AdminToolsPlugin.index.tab_notes", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_tools/admin_notes/" ))
+			array('name' => $this->_("AdminToolsPlugin.index.tab_emptycache", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_main/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_countries", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_countries/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_services", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_services/")),
+			array('name' => $this->_("AdminToolsPlugin.index.tab_clients", true), 'current' => true, 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_clients/")),			
+			array('name' => $this->_("AdminToolsPlugin.index.tab_notes", true), 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_notes/" ))
 		);
 		
 		$this->Widget->clear();
@@ -17,8 +17,8 @@
 		<div class="pad">
 			<div class="inner">
 				<div class="links_row">
-					<a class="btn_right email" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_clients/emails/");?>"><span><?php $this->_("AdminToolsPlugin.clients.duplicate_emails");?></span></a>
-					<a class="btn_right username" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_tools/admin_clients/usernames/");?>"><span><?php $this->_("AdminToolsPlugin.clients.duplicate_usernames");?></span></a>
+					<a class="btn_right email" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_clients/emails/");?>"><span><?php $this->_("AdminToolsPlugin.clients.duplicate_emails");?></span></a>
+					<a class="btn_right username" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_clients/usernames/");?>"><span><?php $this->_("AdminToolsPlugin.clients.duplicate_usernames");?></span></a>
 				</div>
 				<?php		
 				if ($this->Html->ifSet($duplicates)) {
@@ -55,11 +55,8 @@
 													<tr class="heading_row">
 														<td class="fixed_small center border_none"><span class="paymnt_arrow"></span></td>
 														
-														<td><?php $this->_("AdminToolsPlugin.clients.client_id");?></td>
-														<td><?php $this->_("AdminToolsPlugin.clients.first_name");?> / <?php $this->_("AdminToolsPlugin.clients.last_name");?></td>
-														<td><?php $this->_("AdminToolsPlugin.clients.address1");?></td>
-														<td><?php $this->_("AdminToolsPlugin.clients.country");?></td>
-														<td><?php $this->_("AdminToolsPlugin.clients.date_added");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.id");?></td>
+														<td><?php $this->_("AdminToolsPlugin.clients.username");?></td>
 														<td><?php $this->_("AdminToolsPlugin.clients.status");?></td>
 														<td><?php $this->_("AdminToolsPlugin.clients.has_service");?></td>
 													</tr>
@@ -73,9 +70,7 @@
 														<td style="width:17px;"><div class="handle" style="display:none;"></div></td>
 														
 														<td><a href="<?php echo $this->base_uri . "clients/view/" . $this->Html->_($package["client_id"], true) . "/";?>" ><?php $this->Html->_($package["client_id"]);?></a></td>
-														<td><?php $this->Html->_($package["first_name"]);?> <?php $this->Html->_($package["last_name"]);?></td>
-														<td><?php $this->Html->_($package["address1"]);?></td>
-														<td><?php $this->Html->_($package["country"]);?><img src="<?php echo $dirname . "admin_tools" . DS . "views/default/images/32/" . strtolower($package["country"]) . ".png";?>" /></td>
+														<td><?php $this->Html->_($package["username"]);?></td>
 														<td><?php $this->Html->_($package["date_added"]);?></td>
 														<td>N/A</td>
 														<td>N/A</td>

@@ -16,7 +16,7 @@ class AdminMain extends AppController {
         // Require login
         $this->requireLogin();
 
-        Language::loadLang("admin_tools", null, PLUGINDIR . "admin_tools" . DS . "language" . DS);
+        Language::loadLang("admin_utils", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
 		
         // Set the plugin ID
         $this->plugin_id = (isset($this->get[0]) ? $this->get[0] : null);
@@ -55,12 +55,12 @@ class AdminMain extends AppController {
 			else {
 				// Success
 				$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success", true));
-				$this->redirect($this->base_uri . "plugin/admin_tools/admin_main/");
+				$this->redirect($this->base_uri . "plugin/admin_utils/admin_main/");
 			}
 		}			
 			
 		// Set the view to render for all actions under this controller
-		$this->view->setView(null, "AdminTools.default");
+		$this->view->setView(null, "AdminUtils.default");
 		$this->set("cache", $cache);
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.emptycache.page_title", true));
 		return $this->partial("admin_main", $vars);
