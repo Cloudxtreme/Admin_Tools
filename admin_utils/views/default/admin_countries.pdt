@@ -15,7 +15,7 @@
 		$this->Widget->create($this->_("AdminToolsPlugin.countries.page_title", true));
 		//$this->Widget->create($this->_("AdminToolsPlugin.box.page_title", true), array('id'=>"admin_utils"), $this->Html->ifSet($render_section, null));		
 		
-		$dirname = dirname($_SERVER['SCRIPT_NAME']) . DS . str_replace(ROOTWEBDIR, "", PLUGINDIR);
+		$dirname = $this->base_uri."../plugins/";
 		
 		?>
 		<div class="pad">

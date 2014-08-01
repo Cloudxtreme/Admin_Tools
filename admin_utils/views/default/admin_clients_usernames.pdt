@@ -22,7 +22,7 @@
 				</div>
 				<?php		
 				if ($this->Html->ifSet($duplicates)) {
-				$dirname = dirname($_SERVER['SCRIPT_NAME']) . DS . str_replace(ROOTWEBDIR, "", PLUGINDIR);
+				$dirname = $this->base_uri."../plugins/";
 				// print_r($duplicates) ;
 				?>
 					<table class="table">
