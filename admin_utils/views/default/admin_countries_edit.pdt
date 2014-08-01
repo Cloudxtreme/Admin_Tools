@@ -14,7 +14,7 @@
 		$this->Widget->create($this->_("AdminToolsPlugin.countries.add.page_title", true));
 		$this->Form->create(null, array('id' => "add_country"));
 		//print_r($countries);
-		$dirname = dirname($_SERVER['SCRIPT_NAME']) . DS . str_replace(ROOTWEBDIR, "", PLUGINDIR);
+		$dirname = $this->base_uri."../plugins/";
 		?>
 		<div class="pad">
 			<div class="inner">
