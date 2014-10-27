@@ -46,16 +46,20 @@ class AdminMain extends AdminUtilsController {
 				if (is_file(CACHEDIR . $path . $item))
 					@unlink(CACHEDIR . $path . $item);
 			}		
-			
+			$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success", true), null, false);
+			$this->redirect($this->base_uri . "plugin/admin_utils/admin_main/");
+			/*
 			if ((!Cache::emptyCache($this->company_id . DS . "nav" . DS))) {
 				// Error
-				$this->setMessage("error", Language::_("AdminToolsPlugin.emptycache.!error", true));				
+				$this->setMessage("error", Language::_("AdminToolsPlugin.emptycache.!error",  true) , false, null, false);		
 			}
 			else {
 				// Success
-				$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success", true));
+				$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success",  true) , false, null, false);	
 				$this->redirect($this->base_uri . "plugin/admin_utils/admin_main/");
 			}
+			*/
+			
 		}			
 			
 		// Set the view to render for all actions under this controller
