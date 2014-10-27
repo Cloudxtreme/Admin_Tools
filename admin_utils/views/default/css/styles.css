@@ -7,5 +7,32 @@
 .common_box .links_row a.notes span{background:url(../../../../../vendors/fugue_icons/sticky-notes-text.png) no-repeat 0 50%}
 .common_box .links_row a.normal span{background:url(../../../../../vendors/fugue_icons/sticky-notes.png) no-repeat 0 50%}
 .common_box .links_row a.stick span{background:url(../../../../../vendors/fugue_icons/pin--minus.png) no-repeat 0 50%}
+
+.common_box .links_row a.ip span{background:url(../../../../../vendors/fugue_icons/globe-network-ethernet.png) no-repeat 0 50%}
+.common_box .links_row a.tweak span{background:url(../../../../../vendors/fugue_icons/shield--minus.png) no-repeat 0 50%}
+.common_box .links_row a.url span{background:url(../../../../../vendors/fugue_icons/anchor.png) no-repeat 0 50%}
+
 .tabs_row ul li span.notes {background:url(../../../../../vendors/fugue_icons/service-bell--exclamation.png) no-repeat 0 50% }
 
+.common_box form textarea {width: 50%;}
+
+tr.sub_link td:first-child{padding-left: 20px;}
+
+tr.sub_link .sub_1 {
+    padding: 0px 10px;
+    height: 16px;
+    background: url('../images/arrow06.gif') no-repeat scroll 0% 0% transparent;
+}
+
+.navstaff thead {color:green;}
+
+.navstaff input.submit {
+  margin: 0;
+  padding: 0;
+  border: none;
+  /*color: blue;*/
+  /*color: blue;*/
+  background-color: transparent;
+  text-decoration: underline;
+  cursor:pointer;
+}

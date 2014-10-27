@@ -8,7 +8,7 @@
  * @link http://www.naja7host.com/ Naja7host
  */
  
-class Clients extends AppModel {
+class Clients extends AdminUtilsModel {
 	
 	/**
 	 * Initialize Clients
@@ -51,6 +51,13 @@ class Clients extends AppModel {
 			$i++ ;
 		}		
 		arsort($out);
+		
+		foreach ($out as $emails => $count) {
+			// print_r($count);
+			if ($count["doubles"] < 2 )
+				unset($out[$emails]);
+		}	
+		
 		return $out ;
 	}
 
@@ -82,37 +89,20 @@ class Clients extends AppModel {
 				$out[$value->username] = array ("doubles" => 1 , "clients" => array( 1 => array ("id" => $arr[$i]->id  , "username" => $arr[$i]->username  , "date_added" => $arr[$i]->date_added ) ) );
 			}			
 			$i++ ;
-		}		
+		}
+		
 		arsort($out);
+		
+		foreach ($out as $username => $count) {
+			// print_r($count);
+			if ($count["doubles"] < 2 )
+				unset($out[$username]);
+		}		
+		
+		
 		return $out ;
 	}	
-	
-	/**
-	 * Partially constructs the query required by GetNotes 
-	 *
-	 * @return Record The partially constructed query Record object
-	 */
-	private function fetchDuplicates() {		
-		// $sub_query = new Record();
-		$sql = "SELECT email FROM contacts WHERE email in ( SELECT email FROM contacts GROUP BY email HAVING count(email) > 1)";
 
-		// $results = 
-		$this->Record->query($sql, array(1)); 
-		
-		/*
-		$phrases = $result ; 
-		// Add emails to a long string 
-		$phrases = "" ; 
-		for ($i=0; $i<count($result); $i++) {
-			$phrases .= $result[$i]->email ." " ;
-		}		
-			
-		$counts = array_count_values(str_word_count($phrases, 1, '0123456789àáãç.-_@'));		
-		arsort($counts);
-		*/		
-				
-		return $this->Record;
-	}	
 	
 }
 ?>

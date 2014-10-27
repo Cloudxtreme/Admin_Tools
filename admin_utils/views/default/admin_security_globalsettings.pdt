@@ -1,0 +1,48 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.security.page_title.globalsettings", true));
+		$this->Form->create();		
+		?>
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>			
+
+				<ul>
+							
+					<li>
+						<?php $this->Form->fieldCheckbox("uninstall_plugins", "1", ($this->Html->ifSet($vars['uninstall_plugins'], "0") == "1"), array('id'=>"uninstall_plugins"));?>						
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.globalsettings.uninstall_plugins", true), "uninstall_plugins", array('class'=>"inline"));?>
+					</li>
+					<li>
+						<?php $this->Form->fieldCheckbox("stopforumspam_check", "1", ($this->Html->ifSet($vars['stopforumspam_check'], "0") == "1"), array('id'=>"stopforumspam_check"));?>					
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.globalsettings.stopforumspam_check", true), "stopforumspam_check", array('class'=>"inline"));?>
+					</li>							
+					<li>
+						<?php $this->Form->fieldCheckbox("block_duplicate", "1", ($this->Html->ifSet($vars['block_duplicate'], "0") == "1"), array('id'=>"block_duplicate"));?>					
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.globalsettings.block_duplicate", true), "block_duplicate", array('class'=>"inline"));?>
+					</li>						
+					<li>
+						<?php $this->Form->fieldCheckbox("route_admin", "1", ($this->Html->ifSet($vars['route_admin'], "0") == "1"), array('id'=>"route_admin",'disabled'=>"disabled"));?>
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.globalsettings.route_admin", true), "route_admin", array('class'=>"inline"));?>					
+						<span class="icon exclamation"></span>
+						<?php $this->Form->label($this->_("AdminToolsPlugin.error.not_available", true), "route_admin", array('class'=>"inline"));?>	
+						
+					</li>						
+				<ul>
+				
+				<div class="button_row">
+					<a class="btn_right submit" href=""><?php $this->_("AdminToolsPlugin.security.submit_save");?></a>
+					<a class="btn_right" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_security/");?>"><?php $this->_("AdminToolsPlugin.security.submit_cancel");?></a>
+				</div>				
+					
+				</div>
+			</div>
+		</div>	
+		<?php
+		$this->Form->end();		
+		$this->Widget->end();
+		?>

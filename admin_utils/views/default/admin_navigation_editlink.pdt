@@ -1,0 +1,85 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.navigation.page_title.editlink", true));
+		$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/editlink/");
+		?>
+		<div class="pad">
+			<div class="inner">
+			
+				<section class="common_box" id="navigations_staff">
+					<div class="common_box_header">
+						<h2><span><?php $this->_("AdminToolsPlugin.navigation.box_title.editlink");?></span></h2>
+					</div>					
+					<div class="common_box_inner">			
+						<table class="table navstaff">
+							<tr class="heading_row">
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.name");?> - <?php $this->_("AdminToolsPlugin.navigation.navigations_staff");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.uri");?></span></td>
+								<td class="last" ><span><?php $this->_("AdminToolsPlugin.navigation.options");?></span></td>
+							</tr>			
+							<?php
+							if ($this->Html->ifSet($nav)) {
+								?>
+								<tr >
+									<td><?php $this->Form->fieldText("name",$this->Html->_($nav->name, true));?></td>
+									<td><?php $this->Form->fieldText("uri",$this->Html->_($nav->uri, true));?></td>
+									<td>
+									<?php 
+										if ($this->Html->ifSet($nav->options)) {
+											foreach ($nav->options as $key => $value) {	
+											if ($key == "parent")
+												$this->Form->fieldText("parent",$this->Html->_($value, true));
+											}										
+										}
+									?>
+									<?php 
+										$this->Form->fieldHidden("action", $this->Html->_($nav->action, true));
+										$this->Form->fieldHidden("plugin_id", $this->Html->_($nav->plugin_id, true));
+										$this->Form->fieldHidden("save", "1");
+									?>
+									</td>
+								</tr>
+								<?php					
+								}	
+							
+							if ($this->Html->ifSet($nav->options)) {
+								foreach ($nav->options as $key => $value) {	
+									if ($key == "sub")  {								
+										//$keys = array( "uri", "name" );
+										for($i = 0; $i < count($value); ++$i) {
+											?>
+											<tr class="sub_link" >
+												<td><span class="sub_1"></span><?php $this->Form->fieldText("options[sub][$i][name]",$this->Html->_($value[$i]["name"], true));?></td>
+												<td><?php $this->Form->fieldText("options[sub][$i][uri]",$this->Html->_($value[$i]["uri"], true));?></td>
+												<td></td>
+											</tr>
+											<?php									
+										}
+									} 
+								
+								}										
+							}						
+							?>
+						</table>		
+					</div>
+					<div class="shadow"></div>
+				</section>					
+					
+					
+
+
+				<div class="button_row">
+					<a class="btn_right submit" href=""><?php $this->_("AdminToolsPlugin.navigation.submit_save");?></a>
+					<a class="btn_right" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_navigation/");?>"><?php $this->_("AdminToolsPlugin.navigation.submit_cancel");?></a>
+				</div>	
+				
+			</div>
+		</div>	
+		<?php
+		$this->Form->end();
+		$this->Widget->end();
+		?>

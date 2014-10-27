@@ -8,7 +8,7 @@
  * @link http://www.naja7host.com/ Naja7host
  */
  
-class Notes extends AppModel {
+class Notes extends AdminUtilsModel {
 	
 	/**
 	 * Initialize Clients
@@ -130,26 +130,6 @@ class Notes extends AppModel {
 		$this->Record->where("id", "=", (int)$note_id)->
 			update("client_notes", array('stickied' => "1" ));		
 	}	
-	
-	
-	/*************************************************************/
-	
-
-	
-
-	
-
-	/**
-	 * Returns the note specified
-	 *
-	 * @param int $note_id The ID of the note to fetch
-	 * @return mixed A stdClass object representing the note, false if the note does not exist
-	 */
-	public function getNote($note_id) {
-		return $this->Record->select(array("id","client_id","staff_id","title","description","stickied","date_added","date_updated"))->
-			from("client_notes")->where("id", "=", $note_id)->fetch();
-	}
-	
 
 }
 ?>

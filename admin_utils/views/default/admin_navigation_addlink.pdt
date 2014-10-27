@@ -1,0 +1,53 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.navigation.page_title.addlink", true));
+		$this->Form->create();
+		?>
+		<div class="pad">
+			<div class="inner">	
+
+				<section class="common_box" id="navigations_staff">
+					<div class="common_box_header">
+						<h2><span><?php $this->_("AdminToolsPlugin.navigation.box_title.addlink");?></span></h2>
+					</div>					
+					<div class="common_box_inner">			
+						<table class="table navstaff">
+							<tr class="heading_row">
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.type");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.name");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.uri");?></span></td>
+								<td class="last" ><span><?php $this->_("AdminToolsPlugin.navigation.options");?></span></td>
+							</tr>
+							<tr >
+								<td><?php $this->Form->fieldSelect("action", $this->Html->ifSet($action) , $this->Html->ifSet($action), array('id' => "action"));?></td>
+								<td><?php $this->Form->fieldText("name",$this->Html->_($var->name, true));?></td>
+								<td><?php $this->Form->fieldText("uri",$this->Html->_($var->uri, true));?></td>
+								<td><?php $this->Form->fieldText("parent",$this->Html->_($var->parent, true));?>
+								<?php 
+									$this->Form->fieldHidden("plugin_id", $this->Html->ifSet($plugin_id));
+								?>
+								</td>
+							</tr>
+						</table>		
+					</div>
+					<div class="shadow"></div>
+				</section>		
+
+				<div class="button_row">
+					<a class="btn_right submit" href=""><?php $this->_("AdminToolsPlugin.navigation.submit_save");?></a>
+					<a class="btn_right" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_navigation/");?>"><?php $this->_("AdminToolsPlugin.navigation.submit_cancel");?></a>
+				</div>	
+
+							
+					
+				</div>
+			</div>
+		</div>	
+		<?php
+		$this->Form->end();
+		$this->Widget->end();
+		?>

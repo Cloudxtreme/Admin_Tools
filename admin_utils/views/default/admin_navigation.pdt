@@ -1,0 +1,251 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.navigation.page_title", true));
+		
+		?>
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>
+				
+				<section class="common_box" id="navigations_staff">
+					<div class="common_box_header">
+						<h2><span><?php $this->_("AdminToolsPlugin.navigation.navigations_staff");?></span></h2>
+					</div>					
+					<div class="common_box_inner">
+						<table class="table navstaff">
+							<tr class="heading_row">
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.name");?> - <?php $this->_("AdminToolsPlugin.navigation.navigations_staff");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.uri");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.options");?></span></td>
+								<td class="last"><span><?php $this->_("AdminToolsPlugin.navigation.heading_options");?></span></td>
+							</tr>
+							
+							<?php
+							$i = 0;
+							foreach ($this->Html->ifSet($navstaff, array()) as $link => $value) {
+								$attributes = array();
+								
+								if ($value['edit'])
+									$attributes['class'][] = "odd_row expand";
+									
+								if ($i == 0)
+									$attributes['class'][] = "first";
+							?>
+							
+							<tr <?php echo $this->Html->buildAttributes($attributes);?> >
+								<td><?php $this->Html->_($value['name']);?></td>
+								<td><?php $this->Html->_($link);?></td>
+								<td><?php $this->Html->_($value['options']);?></td>
+								<td>
+								<?php
+								if ($value['edit']) {
+									$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/editlink/");
+									$this->Form->fieldHidden("uri", $this->Html->_($link, true));
+									$this->Form->fieldHidden("action", $this->Html->_($value['action'], true));
+									$this->Form->fieldHidden("plugin_id", $this->Html->_($value['plugin_id'], true));									
+									?>	
+									<input class="submit" type="submit" value="<?php $this->_("AdminToolsPlugin.navigation.edit");?>" />									
+									<?php
+									$this->Form->end();
+									$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");
+									$this->Form->fieldHidden("uri", $this->Html->_($link, true));
+									$this->Form->fieldHidden("action", $this->Html->_($value['action'], true));
+									$this->Form->fieldHidden("plugin_id", $this->Html->_($value['plugin_id'], true));
+									?>
+									<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");?>" class="manage" rel="<?php echo $this->Html->safe($this->_("AdminToolsPlugin.navigation.confirm_delete", true));?>"><?php $this->_("AdminToolsPlugin.navigation.delete");?></a>
+									<?php
+									$this->Form->end();
+								}
+								?>						
+								</td>
+							</tr>
+
+								
+								<?php
+								if ($this->Html->ifSet($value['sub']) && is_array($value['sub'])) {
+									$ul_attributes = array();
+									$j=0;
+									foreach ($value['sub'] as $sub_link => $sub_value) {
+										$attributes = array();
+										if ($sub_value['edit'])
+											$attributes['class'][] = "odd_row expand";			
+										
+										$attributes['class'][] = " sub_link";	
+									?>
+									<tr <?php echo $this->Html->buildAttributes($attributes);?> >
+										<td><span class="sub_1"></span><?php $this->Html->_($sub_value['name']);?></td>
+										<td><?php $this->Html->_($sub_link);?></td>
+										<td><?php $this->Html->_($sub_value['options']);?></td>
+										<td>
+										<?php
+										if ($sub_value['edit']) {
+											$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/editlink/");
+											$this->Form->fieldHidden("uri", $this->Html->_($sub_link, true));
+											$this->Form->fieldHidden("action", $this->Html->_($sub_value['action'], true));
+											$this->Form->fieldHidden("plugin_id", $this->Html->_($sub_value['plugin_id'], true));										
+											?>	
+											<input class="submit" type="submit" value="<?php $this->_("AdminToolsPlugin.navigation.edit");?>">	
+											<?php
+											$this->Form->end();
+											$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");
+											$this->Form->fieldHidden("uri", $this->Html->_($sub_link, true));
+											$this->Form->fieldHidden("action", $this->Html->_($sub_value['action'], true));
+											$this->Form->fieldHidden("plugin_id", $this->Html->_($sub_value['plugin_id'], true));
+											?>
+											<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");?>" class="manage" rel="<?php echo $this->Html->safe($this->_("AdminToolsPlugin.navigation.confirm_delete", true));?>"><?php $this->_("AdminToolsPlugin.navigation.delete");?></a>
+											<?php
+											$this->Form->end();
+										}
+										?>						
+										</td>
+									</tr>
+									
+
+									<?php
+									}
+									?>
+
+								<?php
+								}
+								?>
+							
+							<?php
+								$i++;
+							}
+							unset($i);
+							?>
+						</table>
+					</div>
+					<div class="shadow"></div>
+				</section>
+				
+				<section class="common_box" id="navigations_client">
+					<div class="common_box_header">
+						<h2><span><?php $this->_("AdminToolsPlugin.navigation.navigations_client");?></span></h2>
+					</div>				
+					<div class="common_box_inner">
+						<table class="table navstaff">
+							<tr class="heading_row">
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.name");?> - <?php $this->_("AdminToolsPlugin.navigation.navigations_client");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.uri");?></span></td>
+								<td><span><?php $this->_("AdminToolsPlugin.navigation.options");?></span></td>
+								<td class="last"><span><?php $this->_("AdminToolsPlugin.navigation.heading_options");?></span></td>
+							</tr>
+							
+							<?php
+							$i = 0;
+							foreach ($this->Html->ifSet($navclient, array()) as $link => $value) {
+								$attributes = array();
+								
+								if ($value['edit'])
+									$attributes['class'][] = "odd_row expand";
+									
+								if ($i == 0)
+									$attributes['class'][] = "first";
+							?>
+							
+							<tr <?php echo $this->Html->buildAttributes($attributes);?> >
+								<td><?php $this->Html->_($value['name']);?></td>
+								<td><?php $this->Html->_($link);?></td>
+								<td><?php $this->Html->_($value['options']);?></td>
+								<td>
+								<?php
+								if ($value['edit']) {
+									$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/editlink/");
+									$this->Form->fieldHidden("uri", $this->Html->_($link, true));
+									$this->Form->fieldHidden("action", $this->Html->_($value['action'], true));
+									$this->Form->fieldHidden("plugin_id", $this->Html->_($value['plugin_id'], true));									
+									?>	
+									<input class="submit" type="submit" value="<?php $this->_("AdminToolsPlugin.navigation.edit");?>">									
+									<?php
+									$this->Form->end();
+									$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");
+									$this->Form->fieldHidden("uri", $this->Html->_($link, true));
+									$this->Form->fieldHidden("action", $this->Html->_($value['action'], true));
+									$this->Form->fieldHidden("plugin_id", $this->Html->_($value['plugin_id'], true));
+									?>
+									<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");?>" class="manage" rel="<?php echo $this->Html->safe($this->_("AdminToolsPlugin.navigation.confirm_delete", true));?>"><?php $this->_("AdminToolsPlugin.navigation.delete");?></a>
+									<?php
+									$this->Form->end();
+								}
+								?>						
+								</td>
+							</tr>
+
+								
+								<?php
+								if ($this->Html->ifSet($value['sub']) && is_array($value['sub'])) {
+									$ul_attributes = array();
+									$j=0;
+									foreach ($value['sub'] as $sub_link => $sub_value) {
+										$attributes = array();
+										if ($sub_value['edit'])
+											$attributes['class'][] = "odd_row expand";			
+										
+										$attributes['class'][] = " sub_link";	
+									?>
+									<tr <?php echo $this->Html->buildAttributes($attributes);?> >
+										<td><span class="sub_1"></span><?php $this->Html->_($sub_value['name']);?></td>
+										<td><?php $this->Html->_($sub_link);?></td>
+										<td><?php $this->Html->_($sub_value['options']);?></td>
+										<td>
+										<?php
+										if ($sub_value['edit']) {
+											$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/editlink/");
+											$this->Form->fieldHidden("uri", $this->Html->_($sub_link, true));
+											$this->Form->fieldHidden("action", $this->Html->_($sub_value['action'], true));
+											$this->Form->fieldHidden("plugin_id", $this->Html->_($sub_value['plugin_id'], true));									
+											?>	
+											<input class="submit" type="submit" value="<?php $this->_("AdminToolsPlugin.navigation.edit");?>">									
+											<?php
+											$this->Form->end();
+											$this->Form->create($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");
+											$this->Form->fieldHidden("uri", $this->Html->_($sub_link, true));
+											$this->Form->fieldHidden("action", $this->Html->_($sub_value['action'], true));
+											$this->Form->fieldHidden("plugin_id", $this->Html->_($sub_value['plugin_id'], true));
+											?>
+											<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_navigation/delete/");?>" class="manage" rel="<?php echo $this->Html->safe($this->_("AdminToolsPlugin.navigation.confirm_delete", true));?>"><?php $this->_("AdminToolsPlugin.navigation.delete");?></a>
+											<?php
+											$this->Form->end();
+										}
+										?>						
+										</td>
+									</tr>
+									
+
+									<?php
+									}
+									?>
+
+								<?php
+								}
+								?>
+							
+							<?php
+								$i++;
+							}
+							unset($i);
+							?>
+						</table>
+					</div>
+					<div class="shadow"></div>
+				</section>
+				
+		
+					
+				
+			</div>
+		</div>	
+		<?php
+		$this->Widget->end();
+		?>
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a.manage[rel]').blestaModalConfirm({base_url: '<?php echo $this->Html->safe($this->base_uri);?>', close: '<?php $this->_("AppController.modal.text_close");?>', submit: true});
+	});
+</script>		

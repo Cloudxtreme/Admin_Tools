@@ -3,8 +3,8 @@
  * Admin Tools - Help Admins In thier Task .
  * 
  * @package blesta
- * @subpackage blesta.plugins.Cloud_Backup
- * @copyright Copyright (c) 2005, Naja7host SARL.
+ * @subpackage blesta.plugins.Admin Utils
+ * @copyright Copyright (c) 2014, Naja7host SARL.
  * @link http://www.naja7host.com/ Naja7host
  */
 class AdminUtilsModel extends AppModel {
@@ -14,6 +14,14 @@ class AdminUtilsModel extends AppModel {
 	 */
 	public function __construct() {
 		parent::__construct();
+		// Auto load language for these models
+		Language::loadLang("model", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
+		$this->company_id = Configure::get("Blesta.company_id");
+		
+		if (!isset($this->Session))
+			Loader::loadComponents($this, array("Session"));
+			
+		$this->staff_id = $this->Session->read("blesta_staff_id");
 	}
 }
 ?>

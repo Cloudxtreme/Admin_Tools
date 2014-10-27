@@ -3,52 +3,51 @@
  * Admin Tools - Help Admins In thier Task .
  * 
  * @package blesta
- * @subpackage blesta.plugins.Cloud_Backup
- * @copyright Copyright (c) 2005, Naja7host SARL.
+ * @subpackage blesta.plugins.Admin Utils
+ * @copyright Copyright (c) 2014, Naja7host SARL.
  * @link http://www.naja7host.com/ Naja7host
  */
-class AdminMain extends AppController {
+class AdminMain extends AdminUtilsController {
 
-    /**
-     * Performs necessary initialization
-     */
-    private function init() {
-        // Require login
-        $this->requireLogin();
-
-        Language::loadLang("admin_utils", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
+	/**
+	 * Pre Action
+	 */
+	public function preAction() {
+		parent::preAction();
 		
-        // Set the plugin ID
-        $this->plugin_id = (isset($this->get[0]) ? $this->get[0] : null);
-
-        // Set the company ID
-        $this->company_id = Configure::get("Blesta.company_id");
-
+        // Require login
+        $this->requireLogin(); 		
+		Language::loadLang("emptycache", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
+		
 		// Restore structure view location of the admin portal
 		$this->structure->setDefaultView(APPDIR);
-		$this->structure->setView(null, $this->structure->view);
-		// $this->view->setView(null, "emptycache.default");
+		$this->structure->setView(null, $this->orig_structure_view);		
 		
-		$this->staff_id = $this->Session->read("blesta_staff_id");
-	
-    }
+		$this->Tabs = $this->getTabs($current = "emptycache") ; 
+	}
 	
 	/**
 	 * Returns the view to be rendered when managing this plugin
 	 */
+	 
+	 
     public function index() {	
-		$this->init();
-		// $vars = array();
+		
+		$this->uses(array("Users"));
 		$cache = Cache::fetchCache( "nav_staff_group_" . $this->staff_id, $this->company_id . DS . "nav" . DS ) ; 
-		$vars = array(
-			'plugin_id'=>$this->plugin_id,
-			'fetchCache'=>Cache::fetchCache( "nav_staff_group_" . $this->staff_id, $this->company_id . DS . "nav" . DS )
-		);
 			
 		if (!empty($this->post)) {
-			// Cache::clearCache("nav_staff_group_" . $this->staff_id, $this->company_id . DS . "nav" . DS);
+		
+			$path = $this->company_id . DS . "nav" . DS ;
+			if (!($dir = @opendir(CACHEDIR . $path)))
+				return;
+
+			while ($item = @readdir($dir)) {
+				if (is_file(CACHEDIR . $path . $item))
+					@unlink(CACHEDIR . $path . $item);
+			}		
 			
-			if ((!Cache::clearCache("nav_staff_group_" . $this->staff_id, $this->company_id . DS . "nav" . DS))) {
+			if ((!Cache::emptyCache($this->company_id . DS . "nav" . DS))) {
 				// Error
 				$this->setMessage("error", Language::_("AdminToolsPlugin.emptycache.!error", true));				
 			}
@@ -62,11 +61,9 @@ class AdminMain extends AppController {
 		// Set the view to render for all actions under this controller
 		$this->view->setView(null, "AdminUtils.default");
 		$this->set("cache", $cache);
+		$this->set("tabs", $this->Tabs);
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.emptycache.page_title", true));
-		return $this->partial("admin_main", $vars);
-
+		// return $this->partial("admin_main", $vars);
     }
-
 }
-
 ?>

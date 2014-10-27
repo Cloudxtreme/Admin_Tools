@@ -1,0 +1,58 @@
+		<?php
+		echo $this->Html->ifSet($message);
+		
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.security.page_title.iprestriction", true));
+		$this->Form->create();
+		?>
+		
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>			
+
+				<div class="title_row first">
+					<h3><?php $this->_("AdminToolsPlugin.security.iprestriction.admin_area");?></h3>
+				</div>
+				
+				<ul>
+					<li>
+						<?php $this->Form->fieldCheckbox("ip_restriction", "1", ($this->Html->ifSet($vars['ip_restriction'], "0") == "1"), array('id'=>"ip_restriction"));?>					
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.iprestriction.ip_restriction", true), "ip_restriction", array('class'=>"inline"));?>
+					</li>
+					<li>
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.iprestriction.allowed_ips", true), "allowed_ips");?>
+						<?php $this->Form->fieldTextarea("allowed_ips", $this->Html->ifSet($vars['allowed_ips']), array('id'=>"allowed_ips", 'row' => "50"));?>
+					</li>
+				<ul>
+				
+				<div class="title_row ">
+					<h3><?php $this->_("AdminToolsPlugin.security.iprestriction.client_area");?></h3>
+				</div>
+				
+				<ul>
+					<li>
+						<?php $this->Form->fieldCheckbox("block_access", "1", ($this->Html->ifSet($vars['block_access'], "0") == "1"), array('id'=>"block_access"));?>					
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.iprestriction.block_access", true), "block_access", array('class'=>"inline"));?>
+					</li>
+					<li>
+						<?php $this->Form->label($this->_("AdminToolsPlugin.security.iprestriction.blocked_ips", true), "blocked_ips");?>
+						<?php $this->Form->fieldTextarea("blocked_ips", $this->Html->ifSet($vars['blocked_ips']), array('id'=>"blocked_ips", 'row' => "50"));?>
+					</li>
+				<ul>				
+				
+				
+				
+				
+				<div class="button_row">
+					<a class="btn_right submit" href=""><?php $this->_("AdminToolsPlugin.security.submit_save");?></a>
+					<a class="btn_right" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_security/");?>"><?php $this->_("AdminToolsPlugin.security.submit_cancel");?></a>
+				</div>
+				
+			</div>
+		</div>	
+		<?php
+		$this->Form->end();
+		$this->Widget->end();
+		?>
