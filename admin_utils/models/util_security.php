@@ -64,14 +64,14 @@ class UtilSecurity extends AdminUtilsModel {
 	 * Block to uninstalled plugins
 	 */	
 	public function UninstallPlugins() {
-		if (strpos($_SERVER['REQUEST_URI'], "plugin")) {		
+		if (preg_match("/\bplugin\b/i", $_SERVER['REQUEST_URI'])) {
 			if ($this->UtilSecuritySettings['uninstall_plugins'] && !$this->isPluginInstalled() ) {
 				$url =  "http://". $_SERVER['HTTP_HOST'] . WEBDIR  . "404/" ; // redirect to 404 error page instead of index page
 				header('Location: '. $url );
 				exit();
 			}
 		}
-	}	
+	}
 	
 	/**
 	 * Stop Forum Spam
