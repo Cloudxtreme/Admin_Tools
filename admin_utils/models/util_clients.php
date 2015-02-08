@@ -8,7 +8,7 @@
  * @link http://www.naja7host.com/ Naja7host
  */
  
-class Clients extends AdminUtilsModel {
+class UtilClients extends AdminUtilsModel {
 	
 	/**
 	 * Initialize Clients

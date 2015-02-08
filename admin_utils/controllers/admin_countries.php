@@ -32,6 +32,9 @@ class AdminCountries extends AdminUtilsController {
 					<a class="btn_right" href="'. $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_countries/add/") .'"><span>'. Language::_("AdminToolsPlugin.countries.heading_add", true) .'</span></a>
 					<a class="btn_right countries" href="#"><span>'. Language::_("AdminToolsPlugin.countries.total_countries", true , count($this->countrylist)) .'</span></a>
 				</div>';
+				
+		$language = Language::_("AdminToolsPlugin.countries." . Loader::fromCamelCase($this->action ? "page_title.".  $this->action : "page_title") , true);
+		$this->structure->set("page_title", $language);				
 	}
 	
 	
@@ -39,10 +42,6 @@ class AdminCountries extends AdminUtilsController {
 	 * Returns the view to be rendered when managing this plugin
 	 */
     public function index() {
-
-		// $vars = array();
-			
-		// Set the view to render for all actions under this controller		
 		
 		$this->set("countries", $this->countrylist );
 		$this->set("tabs", $this->Tabs);		
@@ -69,12 +68,8 @@ class AdminCountries extends AdminUtilsController {
 			$this->setMessage("error", $errors, false, null, false);
 			$this->set("countries", $vars);
 		}
-		
-		// Set the view to render for all actions under this controller		
-		// $this->view->setView(null, "AdminUtils.default");
-		$this->set("tabs", $this->Tabs);		
-		$this->structure->set("page_title", Language::_("AdminToolsPlugin.countries.add.page_title", true));
 
+		$this->set("tabs", $this->Tabs);
     }
 	
 	/**
@@ -99,8 +94,6 @@ class AdminCountries extends AdminUtilsController {
 		
 		$this->set("tabs", $this->Tabs);		
 		$this->set("countries", $vars);
-		$this->structure->set("page_title", Language::_("AdminToolsPlugin.countries.edit.page_title", true));
-
     }	
 	
 	/**

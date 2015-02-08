@@ -2,8 +2,8 @@
 
 // Page Titles
 $lang['AdminToolsPlugin.countries.page_title'] = "Countries";
-$lang['AdminToolsPlugin.countries.add.page_title'] = "Add Country";
-$lang['AdminToolsPlugin.countries.edit.page_title'] = "Edit Country";
+$lang['AdminToolsPlugin.countries.page_title.add'] = "Add Country";
+$lang['AdminToolsPlugin.countries.page_title.edit'] = "Edit Country";
 
 // Countries 
 $lang['AdminToolsPlugin.countries.box_title'] = "Countries";

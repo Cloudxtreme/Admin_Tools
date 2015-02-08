@@ -72,18 +72,14 @@ class AdminSecurity extends AdminUtilsController {
 				unset($this->UtilSecuritySettings['block_access']);				
 			
 			$result = array_merge($this->UtilSecuritySettings , $this->post);			
-			
-			// print_r($this->post);
-			// print_r($this->UtilSecuritySettings);			
-			// print_r($result);
-			
+					
 			$this->Companies->setSetting($this->company_id , "AdminUtilsPlugin", serialize($result));
 			$this->setMessage("success", Language::_("AdminToolsPlugin.security.!success.allowededip_saved", true) , false, null, false);	
 			
 			$vars = (array)$this->post ;
 			
 		}
-		
+
 		$this->set("vars", $vars );		
 		$this->set("tabs", $this->Tabs);		
 		$this->set("navigationlinks", $this->NavigationLinks);	

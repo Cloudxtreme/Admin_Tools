@@ -1,0 +1,68 @@
+		<?php
+		echo $this->Html->ifSet($message);		
+	
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");			
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.cms.page_title", true));
+
+		?>
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>
+
+				<?php		
+				if ($this->Html->ifSet($pages)) {
+				?>
+					<table class="table">
+						<tr class="heading_row">
+							<td><span><?php $this->_("AdminToolsPlugin.cms.uri");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.cms.title");?></span></td>
+							<td class="last"><span><?php $this->_("AdminToolsPlugin.cms.heading_options");?></span></td>
+						</tr>
+						<?php
+						for ($i=0; $i<count($pages); $i++) { //  
+						?>
+						<tr class="<?php echo $this->Html->concat(" ", ($i%2 == 1) ? "odd_row" : "");?>">
+							<td><?php $this->Html->_($pages[$i]->uri);?></td>
+							<td><?php $this->Html->_($pages[$i]->title);?></td>
+
+							<td>
+								<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_cms/edit/" . $this->Html->ifSet($pages[$i]->uri));?>"><?php $this->_("AdminToolsPlugin.cms.edit");?></a>,
+								<?php
+								$this->Form->create($this->base_uri . "plugin/admin_utils/admin_cms/delete/");
+								$this->Form->fieldHidden("uri", $this->Html->ifSet($pages[$i]->uri));
+								?>
+								<a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_cms/delete/" . $this->Html->ifSet($pages[$i]->uri) );?>" class="manage" rel="<?php $this->_("AdminToolsPlugin.cms.confirm_delete");?>"><?php $this->_("AdminToolsPlugin.cms.delete");?></a>
+								<?php
+								$this->Form->end();
+								?>
+							</td>
+						</tr>
+						<?php
+						}
+						?>
+					</table>
+				<?php
+				}
+				else {
+				?>		
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.cms.empty");?>
+						</div>
+					</div>
+				<?php
+				}
+				?>
+			</div>
+		</div>
+		<?php
+		$this->Widget->end();
+		?>	
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a.manage[rel]').blestaModalConfirm({base_url: '<?php echo $this->Html->safe($this->base_uri);?>', close: '<?php $this->_("AppController.modal.text_close");?>', submit: true});
+	});
+</script>	

@@ -29,7 +29,6 @@ class UtilSecurity extends AdminUtilsModel {
 
 		$this->UtilSecuritySettings['allowed_ips'] = explode("\n", str_replace("\r", "", $this->UtilSecuritySettings['allowed_ips']));	
 		$this->UtilSecuritySettings['blocked_ips'] = explode("\n", str_replace("\r", "", $this->UtilSecuritySettings['blocked_ips']));	
-		// echo $this->CheckSection() ;
 		
 		// ensure we are in admin side section
 		if ($this->CheckSection() == "admin" ) {
@@ -49,7 +48,7 @@ class UtilSecurity extends AdminUtilsModel {
 			}
 		}
 		
-		// ensure we are in client side section
+		// ensure we are in admin side section
 		// return 403 error code for blocked ip
 		if (!$this->CheckSection() == "admin" ) {
 			if ($this->UtilSecuritySettings['block_access'] && in_array($_SERVER['REMOTE_ADDR'], $this->UtilSecuritySettings['blocked_ips']) ){			
@@ -64,7 +63,7 @@ class UtilSecurity extends AdminUtilsModel {
 	 * Block to uninstalled plugins
 	 */	
 	public function UninstallPlugins() {
-		if (preg_match("/\bplugin\b/i", $_SERVER['REQUEST_URI'])) {
+		if (strpos($_SERVER['REQUEST_URI'],'/plugin/')  ) {
 			if ($this->UtilSecuritySettings['uninstall_plugins'] && !$this->isPluginInstalled() ) {
 				$url =  "http://". $_SERVER['HTTP_HOST'] . WEBDIR  . "404/" ; // redirect to 404 error page instead of index page
 				header('Location: '. $url );
@@ -291,7 +290,7 @@ class UtilSecurity extends AdminUtilsModel {
 	private function CheckSection() {
 		if (strpos($_SERVER['REQUEST_URI'], Configure::get("Route.admin"))) {
 			return "admin";
-		} else if (strpos($_SERVER['REQUEST_URI'], "order" )) {
+		} else if (strpos($_SERVER['REQUEST_URI'], "/order/" )) {
 			return "order";
 		} else 	{
 			return "client";

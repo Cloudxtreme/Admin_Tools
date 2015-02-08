@@ -21,7 +21,9 @@ class AdminUtilsModel extends AppModel {
 		if (!isset($this->Session))
 			Loader::loadComponents($this, array("Session"));
 			
+        $this->company_id = Configure::get("Blesta.company_id");
 		$this->staff_id = $this->Session->read("blesta_staff_id");
+		$this->user_id  = $this->Session->read("blesta_id");
 	}
 }
 ?>

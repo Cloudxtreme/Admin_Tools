@@ -8,7 +8,7 @@
  * @link http://www.naja7host.com/ Naja7host
  */
  
-class Navigations extends AdminUtilsModel {
+class UtilNavigations extends AdminUtilsModel {
 	
 	/**
 	 * Initialize Clients
@@ -147,6 +147,7 @@ class Navigations extends AdminUtilsModel {
 				foreach ($element->options['sub'] as $sub) {
 					$nav[$base_uri . $element->uri]['sub'][$base_uri . $sub['uri']] = array(
 						'name' => $sub['name'],
+						'edit' => true,
 						'active' => false,
 					);
 				}

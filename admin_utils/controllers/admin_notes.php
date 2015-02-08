@@ -9,7 +9,6 @@
  */
 class AdminNotes extends AdminUtilsController {
 
-
 	/**
 	 * Pre Action
 	 */
@@ -24,10 +23,9 @@ class AdminNotes extends AdminUtilsController {
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->orig_structure_view);		
 		
-		$this->uses(array("users","Contacts"));
-		$this->uses(array("admin_utils.Notes")); // Call Notes Model Inside admin_utils 
+		$this->uses(array("admin_utils.UtilNotes")); // Call Notes Model Inside admin_utils 
 		
-		$this->total_notes = $this->Notes->getNoteListCount() ;
+		$this->total_notes = $this->UtilNotes->getNoteListCount() ;
 		$this->Tabs = $this->getTabs($current = "notes") ;
 		
 		$this->NavigationLinks = '
@@ -35,8 +33,10 @@ class AdminNotes extends AdminUtilsController {
 					<a class="btn_right sticky" href="'. $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_notes/sticky/") .'"><span>'. Language::_("AdminToolsPlugin.notes.sticky", true , $this->total_notes['total_sticky'] ) .' </span></a>
 					<a class="btn_right normal" href="'. $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_notes/unsticky/") .'"><span>'. Language::_("AdminToolsPlugin.notes.unsticky" , true , $this->total_notes['total_unsticky'] ) .'</span></a>
 					<a class="btn_right notes"  href="'. $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_notes/") .'"><span>'. Language::_("AdminToolsPlugin.notes.total_notes", true , $this->total_notes['total_notes'] ) .'</span></a>
-				</div>				
-				';
+				</div>';
+				
+		$language = Language::_("AdminToolsPlugin.notes." . Loader::fromCamelCase($this->action ? "page_title.".  $this->action : "page_title") , true);
+		$this->structure->set("page_title", $language);					
 	} 
 	
 	
@@ -45,12 +45,9 @@ class AdminNotes extends AdminUtilsController {
 	 */
     public function index() {	
 
-	
 		$this->set("tabs", $this->Tabs);		
 		$this->set("navigationlinks", $this->NavigationLinks);	
-		$this->set("notes", $this->Notes->GetNotes());
-		$this->set("total_notes", $this->total_notes );
-		$this->structure->set("page_title", Language::_("AdminToolsPlugin.notes.page_title", true));
+		$this->set("notes", $this->UtilNotes->GetNotes());
     }
 
 	/**
@@ -58,9 +55,9 @@ class AdminNotes extends AdminUtilsController {
 	 */
     public function delete() {	
 	
-			$this->Notes->deleteNote($this->get[0]) ;
+			$this->UtilNotes->deleteNote($this->get[0]) ;
 			
-			if (($errors = $this->Notes->errors()))
+			if (($errors = $this->UtilNotes->errors()))
 				$this->setMessage("error", $errors, false, null, false);
 			else
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.notes.delete.!success", true), null, false);
@@ -75,9 +72,8 @@ class AdminNotes extends AdminUtilsController {
 
 		$this->set("tabs", $this->Tabs);		
 		$this->set("navigationlinks", $this->NavigationLinks);	
-		$this->set("notes", $this->Notes->getAllStickyNotes());
+		$this->set("notes", $this->UtilNotes->getAllStickyNotes());
 		$this->set("total_notes", $this->total_notes );	
-		$this->structure->set("page_title", Language::_("AdminToolsPlugin.notes.page_title.sticky", true));
     }	
 
 
@@ -89,21 +85,19 @@ class AdminNotes extends AdminUtilsController {
 	
 		$this->set("tabs", $this->Tabs);		
 		$this->set("navigationlinks", $this->NavigationLinks);	
-		$this->set("notes", $this->Notes->getAllUnStickyNotes());
+		$this->set("notes", $this->UtilNotes->getAllUnStickyNotes());
 		$this->set("total_notes", $this->total_notes );	
-		$this->structure->set("page_title", Language::_("AdminToolsPlugin.notes.page_title.unsticky", true));
     }	
 
 	/**
 	 * Sets the given note as unstickied
 	 *
-	 * @param int $note_id The note ID
 	 */
     public function unsticknote() {
 
-			$this->Notes->unstickNote($this->get[0]) ;
+			$this->UtilNotes->unstickNote($this->get[0]) ;
 			
-			if (($errors = $this->Notes->errors()))
+			if (($errors = $this->UtilNotes->errors()))
 				$this->setMessage("error", $errors, false, null, false);
 			else
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.notes.unstick.!success", true), null, false);
@@ -113,14 +107,12 @@ class AdminNotes extends AdminUtilsController {
 
 	/**
 	 * Sets the given note as stickied
-	 *
-	 * @param int $note_id The note ID
 	 */
     public function sticknote() {
 
-			$this->Notes->stickNote($this->get[0]) ;
+			$this->UtilNotes->stickNote($this->get[0]) ;
 			
-			if (($errors = $this->Notes->errors()))
+			if (($errors = $this->UtilNotes->errors()))
 				$this->setMessage("error", $errors, false, null, false);
 			else
 				$this->flashMessage("message", Language::_("AdminToolsPlugin.notes.stick.!success", true), null, false);

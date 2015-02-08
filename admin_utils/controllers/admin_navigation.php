@@ -24,10 +24,8 @@ class AdminNavigation extends AdminUtilsController {
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->orig_structure_view);
 		
-		// $this->uses(array("Navigation"));
-		$this->uses(array("AdminUtils.Navigations")); // Call navigation Model Inside admin_utils 
+		$this->uses(array("AdminUtils.UtilNavigations")); // Call navigation Model Inside admin_utils 
 		
-		// $this->total_notes = $this->Notes->getNoteListCount() ;
 		$this->Tabs = $this->getTabs($current = "navigation") ;
 		
 		$this->NavigationLinks = '';
@@ -50,7 +48,7 @@ class AdminNavigation extends AdminUtilsController {
 			*/
 		);
 		
-		$this->plugin_id = $this->Navigations->PluginID("admin_utils" , Configure::get("Blesta.company_id"))->id ;
+		// $this->plugin_id = $this->UtilNavigations->PluginID("admin_utils" , Configure::get("Blesta.company_id"))->id ;
 		
 		$language = Language::_("AdminToolsPlugin.navigation." . Loader::fromCamelCase($this->action ? "page_title.".  $this->action : "page_title") , true);
 		$this->structure->set("page_title", $language);
@@ -66,8 +64,8 @@ class AdminNavigation extends AdminUtilsController {
 		$this->set("tabs", $this->Tabs);
 		$this->set("navigationlinks", $this->NavigationLinks );
 		
-		$this->set("navstaff", $this->Navigations->getPrimaryStaff($base_uri = null ));
-		$this->set("navclient", $this->Navigations->getPrimaryClient($base_uri = null ));
+		$this->set("navstaff", $this->UtilNavigations->getPrimaryStaff($base_uri = null ));
+		$this->set("navclient", $this->UtilNavigations->getPrimaryClient($base_uri = null ));
     }
 
 
@@ -75,13 +73,11 @@ class AdminNavigation extends AdminUtilsController {
 	 * Edit Navigation
 	 */
     public function editlink() {	
-		// $vars = null;
-		// $data = array();
 
 		if (!empty($this->post)) {
 			
 			if(!isset($this->post['save'])) {
-				$this->set("nav", $this->Navigations->getAction($this->post['plugin_id'], $this->post['uri'], $this->post['action']));
+				$this->set("nav", $this->UtilNavigations->getAction($this->post['plugin_id'], $this->post['uri'], $this->post['action']));
 			}
 			else {
 			
@@ -100,12 +96,11 @@ class AdminNavigation extends AdminUtilsController {
 					$data['options'] = array('sub' => $this->post['options']['sub'] );					
 				}
 				
-				$this->Navigations->EditAction($this->post['plugin_id'] , $data);
+				$this->UtilNavigations->EditAction($this->post['plugin_id'] , $data);
 				$this->flashMessage("message",  Language::_("AdminToolsPlugin.navigation.edit.!success", true) , null, false);
 				$this->redirect($this->base_uri . "plugin/admin_utils/admin_navigation/");
 				
-				$this->set("nav", $this->Navigations->getAction($this->post['plugin_id'], $this->post['uri'], $this->post['action']));
-				// print_r($data);
+				$this->set("nav", $this->UtilNavigations->getAction($this->post['plugin_id'], $this->post['uri'], $this->post['action']));
 			}
 			
 		}
@@ -121,25 +116,20 @@ class AdminNavigation extends AdminUtilsController {
 	
 		$vars = array();
 				
-		// print_r($this->Navigations->PluginID("admin_utils" , Configure::get("Blesta.company_id"))->id);
+		// print_r($this->UtilNavigations->PluginID("admin_utils" , Configure::get("Blesta.company_id"))->id);
 		
 		if (!empty($this->post)) {
-		
-			// print_r($this->post);
-			
+				
 			$data = array(
 				'action' => $this->post['action'],
 				'uri' => $this->post['uri'],
 				'name' => $this->post['name'],
 				'options'  => null
-			);					
-	
-			// if (!isset($this->PluginManager))
-				// $this->uses(array("PluginManager"));				
+			);
 			
-			$this->Navigations->addAction($this->post['plugin_id'], $data);		
+			$this->UtilNavigations->addAction($this->post['plugin_id'], $data);		
 			
-			if (($errors = $this->Navigations->errors())) {
+			if (($errors = $this->UtilNavigations->errors())) {
 				// Error, reset vars
 				$vars = $this->post;
 				$this->setMessage("error", $errors, false, null, false);
@@ -151,7 +141,6 @@ class AdminNavigation extends AdminUtilsController {
 			}
 			
 		}
-		
 		
 		$this->set("action", $this->link_action);
 		$this->set("plugin_id", $this->plugin_id);
@@ -167,7 +156,7 @@ class AdminNavigation extends AdminUtilsController {
 	
 		if (!empty($this->post)) {
 
-			$this->Navigations->deleteAction($this->post['plugin_id'], $this->post['uri'], $this->post['action']);
+			$this->UtilNavigations->deleteAction($this->post['plugin_id'], $this->post['uri'], $this->post['action']);
 			$this->flashMessage("message",  Language::_("AdminToolsPlugin.navigation.delete.!success", true) , null, false);
 		}
 		

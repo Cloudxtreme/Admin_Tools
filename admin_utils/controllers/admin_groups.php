@@ -23,7 +23,7 @@ class AdminGroups extends AdminUtilsController {
 		$this->structure->setDefaultView(APPDIR);
 		$this->structure->setView(null, $this->orig_structure_view);
 		
-		// $this->uses(array("admin_utils.Services")); // Call Notes Model Inside admin_utils 
+		// $this->uses(array("admin_utils.Groups")); // Call Notes Model Inside admin_utils 
 
 		$this->Tabs = $this->getTabs($current = "groups") ;
 		

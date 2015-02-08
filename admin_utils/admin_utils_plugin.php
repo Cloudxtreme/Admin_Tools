@@ -32,7 +32,7 @@ class AdminUtilsPlugin extends Plugin {
      */
 	public function install($plugin_id) {
 		try {
-			$value = array('ip_restriction' => false , 'block_access' => false , 'allowed_ips'=> array() ,  'blocked_ips'=> array() , 'uninstall_plugins'=> true , 'stopforumspam_check'=> true , 'block_duplicate'=> false , 'route_admin'=> null);
+			$value = array('ip_restriction' => false , 'block_access' => false , 'allowed_ips'=> null ,  'blocked_ips'=> null , 'uninstall_plugins'=> true , 'stopforumspam_check'=> true , 'block_duplicate'=> false , 'route_admin'=> null);
 			$this->Companies->setSetting($this->company_id, "AdminUtilsPlugin", serialize($value) );
 		}
 		catch (Exception $e) {
@@ -58,7 +58,7 @@ class AdminUtilsPlugin extends Plugin {
 			// Upgrade to 1.8.0
 			if (version_compare($current_version, "1.6.0", "<")) {
 				// Add settings to databse 
-				$value = array('ip_restriction' => false , 'block_access' => false , 'allowed_ips'=> array() ,  'blocked_ips'=> array() , 'uninstall_plugins'=> true , 'stopforumspam_check'=> true , 'block_duplicate'=> false , 'route_admin'=> null);
+				$value = array('ip_restriction' => false , 'block_access' => false , 'allowed_ips'=> null ,  'blocked_ips'=> null , 'uninstall_plugins'=> true , 'stopforumspam_check'=> true , 'block_duplicate'=> false , 'route_admin'=> null);
 				$this->Companies->setSetting($this->company_id, "AdminUtilsPlugin", serialize($value) );				
 
 			}					

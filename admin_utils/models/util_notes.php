@@ -8,14 +8,14 @@
  * @link http://www.naja7host.com/ Naja7host
  */
  
-class Notes extends AdminUtilsModel {
+class UtilNotes extends AdminUtilsModel {
 	
 	/**
 	 * Initialize Clients
 	 */
 	public function __construct() {
 		parent::__construct();
-		Language::loadLang(array("clients"));
+		// Language::loadLang(array("clients"));
 	}
 	
 	/**

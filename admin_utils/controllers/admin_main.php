@@ -28,16 +28,14 @@ class AdminMain extends AdminUtilsController {
 	
 	/**
 	 * Returns the view to be rendered when managing this plugin
-	 */
-	 
-	 
-    public function index() {	
-		
-		$this->uses(array("Users"));
+	 */ 
+    public function index() {
+	
 		$cache = Cache::fetchCache( "nav_staff_group_" . $this->staff_id, $this->company_id . DS . "nav" . DS ) ; 
 			
 		if (!empty($this->post)) {
 		
+			/*
 			$path = $this->company_id . DS . "nav" . DS ;
 			if (!($dir = @opendir(CACHEDIR . $path)))
 				return;
@@ -45,29 +43,30 @@ class AdminMain extends AdminUtilsController {
 			while ($item = @readdir($dir)) {
 				if (is_file(CACHEDIR . $path . $item))
 					@unlink(CACHEDIR . $path . $item);
-			}		
+			}
+			
 			$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success", true), null, false);
 			$this->redirect($this->base_uri . "plugin/admin_utils/admin_main/");
-			/*
-			if ((!Cache::emptyCache($this->company_id . DS . "nav" . DS))) {
+			*/
+			
+			if (!Cache::clearCache("nav_staff_group_" . $this->staff_id, $this->company_id . DS . "nav" . DS)) {
 				// Error
 				$this->setMessage("error", Language::_("AdminToolsPlugin.emptycache.!error",  true) , false, null, false);		
+				
 			}
 			else {
 				// Success
-				$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success",  true) , false, null, false);	
+				$this->flashmessage("message", Language::_("AdminToolsPlugin.emptycache.!success",  true) ,  null, false);					
 				$this->redirect($this->base_uri . "plugin/admin_utils/admin_main/");
 			}
-			*/
+			
 			
 		}			
-			
-		// Set the view to render for all actions under this controller
+
 		$this->view->setView(null, "AdminUtils.default");
 		$this->set("cache", $cache);
 		$this->set("tabs", $this->Tabs);
 		$this->structure->set("page_title", Language::_("AdminToolsPlugin.emptycache.page_title", true));
-		// return $this->partial("admin_main", $vars);
     }
 }
 ?>
