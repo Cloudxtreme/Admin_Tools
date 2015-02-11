@@ -4,7 +4,7 @@
 		$this->Widget->clear();
 		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");			
 		$this->Widget->setTabs($tabs);		
-		$this->Widget->create($this->_("AdminToolsPlugin.languages.page_title.addlang", true));
+		$this->Widget->create($this->_("AdminToolsPlugin.languages.page_title.genlang", true));
 		?>
 		<div class="pad">
 			<div class="inner">

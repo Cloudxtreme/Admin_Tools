@@ -30,6 +30,7 @@ class AdminLanguages extends AdminUtilsController {
 		$this->NavigationLinks = '
 				<div class="links_row">
 					<a class="btn_right "	href="'. $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_languages/addlang") .'"><span>'. Language::_("AdminToolsPlugin.languages.addlanguage" , true ) .'</span></a>				
+					<a class="btn_right "	href="'. $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_languages/genlang") .'"><span>'. Language::_("AdminToolsPlugin.languages.genlanguage" , true ) .'</span></a>				
 				</div>';
 				
 		$language = Language::_("AdminToolsPlugin.languages." . Loader::fromCamelCase($this->action ? "page_title.".  $this->action : "page_title") , true);
@@ -90,14 +91,7 @@ class AdminLanguages extends AdminUtilsController {
 		$this->set("tabs", $this->Tabs);
     }	
 	
-	/**
-	 * Add Language
-	 */
-    public function addlang() {
-		
-		$this->set("tabs", $this->Tabs);
-    }
-	
+
 	/**
 	 * Edit File Language
 	 */
@@ -113,6 +107,22 @@ class AdminLanguages extends AdminUtilsController {
 			
 		$this->set("tabs", $this->Tabs);
     }		
+	
+	/**
+	 * Add Language
+	 */
+    public function addlang() {
+		
+		$this->set("tabs", $this->Tabs);
+    }
+
+	/**
+	 * Add Language
+	 */
+    public function genlang() {
+		
+		$this->set("tabs", $this->Tabs);
+    }
 	
 }
 

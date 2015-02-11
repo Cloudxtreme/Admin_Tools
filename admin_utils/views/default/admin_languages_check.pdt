@@ -29,7 +29,7 @@
 								<tr class="<?php echo $this->Html->concat(" ", ($i++%2 == 1) ? "odd_row" : "", ($this->Html->ifSet($value->missed, false) ? "expand" : "" ) , "language_info");?>">	
 									<td ><?php $this->Html->_($language);?></td>
 									<td class="icon"><div class="<?php $this->Html->_($value->status) ;?>">&nbsp;</div></td>
-									<td ><?php $this->_("AdminToolsPlugin.languages." . $value->status );?> </td>
+									<td ><?php $this->_("AdminToolsPlugin.languages." . $value->status );?> <?php echo ($this->Html->ifSet($value->missed, false) ? $this->_("AdminToolsPlugin.languages.missed", true ,  count($value->missed) )  : "" ) ;?></td>
 									<td class="last"><a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_languages/" . ($value->status == "inactive" ? "create" : "edit" ) . "/". $this->Html->ifSet($language) );?>" class="<?php echo ($value->status == "inactive" ? "manage" : "" ) ;?>" ><?php $this->_("AdminToolsPlugin.languages." . ($value->status == "inactive" ? "create" : "edit" ) );?></a></td>
 								</tr>
 								

@@ -1,6 +1,4 @@
 <?php
-
-
 // Page Titles
 $lang['AdminToolsPlugin.languages.page_title'] = "Languages Tools";
 $lang['AdminToolsPlugin.languages.page_title.edit'] = "Languages Tools > Edit File";
@@ -13,7 +11,8 @@ $lang['AdminToolsPlugin.languages.box_title.editlink'] = "Edit Link";
 $lang['AdminToolsPlugin.languages.box_title.addlink'] = "Add Link";
 
 // Top Links 
-$lang['AdminToolsPlugin.languages.addlink'] = "Add Link";
+$lang['AdminToolsPlugin.languages.addlanguage'] = "Add Language";
+$lang['AdminToolsPlugin.languages.genlanguage'] = "Generate Language Files";
 
 
 // Languages
@@ -29,7 +28,7 @@ $lang['AdminToolsPlugin.languages.pending'] = "Incomplet Translation";
 $lang['AdminToolsPlugin.languages.status'] = "Status";
 $lang['AdminToolsPlugin.languages.installed'] = "Installed";
 $lang['AdminToolsPlugin.languages.notinstalled'] = "Not Installed";
-$lang['AdminToolsPlugin.languages.missed'] = "Missed Phrases";
+$lang['AdminToolsPlugin.languages.missed'] = "( %1s  Missed Phrases )";
 $lang['AdminToolsPlugin.languages.vars'] = "Phrase Var";
 $lang['AdminToolsPlugin.languages.value'] = "Phrase Value";
 
@@ -46,7 +45,6 @@ $lang['AdminToolsPlugin.languages.add.!success'] = "The Navigation Link Has been
 $lang['AdminToolsPlugin.languages.edit'] = "Edit";
 $lang['AdminToolsPlugin.languages.create'] = "Create";
 $lang['AdminToolsPlugin.languages.add'] = "Add";
-$lang['AdminToolsPlugin.languages.addlanguage'] = "Add Language";
 $lang['AdminToolsPlugin.languages.delete'] = "Delete";
 $lang['AdminToolsPlugin.languages.confirm_delete'] = "Are you sure you want to delete this Navigation Link?";
 $lang['AdminToolsPlugin.languages.submit_add'] = "Add link ";
