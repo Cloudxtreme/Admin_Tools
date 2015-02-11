@@ -1,0 +1,90 @@
+		<?php
+		echo $this->Html->ifSet($message);		
+	
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");			
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.languages.page_title", true));
+
+		?>
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>
+
+				<?php		
+				if ($this->Html->ifSet($languages)) {
+				?>
+					<table class="table" id="languages">
+						<tr class="heading_row">
+							<td><span><?php $this->_("AdminToolsPlugin.languages.original");?></span></td>
+							<td class="icon">&nbsp;</td>
+							<td><span><?php $this->_("AdminToolsPlugin.languages.translated");?></span></td>
+							<td class="last"><span><?php $this->_("AdminToolsPlugin.languages.edit");?></span></td>
+						</tr>
+						<?php
+						if ($this->Html->ifSet($languages, false)) {
+							$i = 0 ;
+							foreach ($languages as $language => $value ) {
+							?>
+								<tr class="<?php echo $this->Html->concat(" ", ($i++%2 == 1) ? "odd_row" : "", ($this->Html->ifSet($value->missed, false) ? "expand" : "" ) , "language_info");?>">	
+									<td ><?php $this->Html->_($language);?></td>
+									<td class="icon"><div class="<?php $this->Html->_($value->status) ;?>">&nbsp;</div></td>
+									<td ><?php $this->_("AdminToolsPlugin.languages." . $value->status );?> </td>
+									<td class="last"><a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_languages/" . ($value->status == "inactive" ? "create" : "edit" ) . "/". $this->Html->ifSet($language) );?>" class="<?php echo ($value->status == "inactive" ? "manage" : "" ) ;?>" ><?php $this->_("AdminToolsPlugin.languages." . ($value->status == "inactive" ? "create" : "edit" ) );?></a></td>
+								</tr>
+								
+								<?php
+								if ($this->Html->ifSet($value->missed, false)) {
+								?>
+									<tr class="expand_details" id="language_<?php $this->Html->_($language);?>">
+										<td colspan="9" class="subtable">
+											<table class="table">
+												<tr class="heading_row">
+													<td class="icon">&nbsp;</td>
+													<td><span><?php $this->_("AdminToolsPlugin.languages.vars");?></span></td>
+													<td><span><?php $this->_("AdminToolsPlugin.languages.value");?></span></td>
+												</tr>				
+												<?php
+												$j = 1 ; 
+												foreach ($value->missed as $missed => $value ) {
+												?>
+												<tr>
+													<td><?php echo  ($j++) ;?></td>
+													<td><?php $this->Html->_($missed) ;?></td>
+													<td><?php $this->Html->_($value) ;?></td>
+												</tr>
+												<?php
+												}							
+												?>
+											</table>			
+										</td>
+									</tr>								
+								<?php
+								}
+							}
+						}
+						?>
+					</table>
+				<?php
+				}
+				else {
+				?>		
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.languages.empty");?>
+						</div>
+					</div>
+				<?php
+				}
+				?>
+			</div>
+		</div>
+		<?php
+		$this->Widget->end();
+		?>	
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a.manage[rel]').blestaModalConfirm({base_url: '<?php echo $this->Html->safe($this->base_uri);?>', close: '<?php $this->_("AppController.modal.text_close");?>', submit: true});
+	});
+</script>	

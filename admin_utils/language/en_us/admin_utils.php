@@ -23,6 +23,7 @@ $lang['AdminToolsPlugin.index.tab_clients'] = "Clients";
 $lang['AdminToolsPlugin.index.tab_notes'] = "Notes";
 $lang['AdminToolsPlugin.index.tab_navigation'] = "Navigation links";
 $lang['AdminToolsPlugin.index.tab_cms'] = "CMS Pages";
+$lang['AdminToolsPlugin.index.tab_languages'] = "Languages";
 
 $lang['AdminToolsPlugin.index.tab_security'] = "Security";
 $lang['AdminToolsPlugin.index.tab_groups'] = "Groups";

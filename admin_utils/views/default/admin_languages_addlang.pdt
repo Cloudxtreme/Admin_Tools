@@ -1,0 +1,24 @@
+		<?php
+		echo $this->Html->ifSet($message);		
+	
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");			
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.languages.page_title.adlang", true));
+		?>
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>
+				
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.error.not_available");?>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>	
+		<?php
+		$this->Widget->end();
+		?>

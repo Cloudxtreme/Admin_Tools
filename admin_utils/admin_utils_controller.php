@@ -46,6 +46,7 @@ class AdminUtilsController extends AppController {
 			array('name' => Language::_("AdminToolsPlugin.index.tab_notes", true),		'current' => ($current == "notes" ? true : false ) , 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_notes/" )),
 			array('name' => Language::_("AdminToolsPlugin.index.tab_security", true),	'current' => ($current == "security" ? true : false ) , 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_security/" )),
 			array('name' => Language::_("AdminToolsPlugin.index.tab_navigation", true),	'current' => ($current == "navigation" ? true : false ) , 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_navigation/" )),
+			array('name' => Language::_("AdminToolsPlugin.index.tab_languages", true),	'current' => ($current == "languages" ? true : false ) , 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_languages/" )),
 			// NOTE YET
 			array('name' => Language::_("AdminToolsPlugin.index.tab_groups", true),		'current' => ($current == "groups" ? true : false ) , 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_groups/" )),
 			array('name' => Language::_("AdminToolsPlugin.index.tab_services", true),	'current' => ($current == "services" ? true : false ) , 'attributes' => array('href' => $this->base_uri . "plugin/admin_utils/admin_services/")),

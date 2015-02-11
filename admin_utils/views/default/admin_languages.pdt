@@ -1,0 +1,65 @@
+		<?php
+		echo $this->Html->ifSet($message);		
+	
+		$this->Widget->clear();
+		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");			
+		$this->Widget->setTabs($tabs);		
+		$this->Widget->create($this->_("AdminToolsPlugin.languages.page_title", true));
+
+		?>
+		<div class="pad">
+			<div class="inner">
+				<?php echo $this->Html->ifSet($navigationlinks);?>
+
+				<?php		
+				if ($this->Html->ifSet($languages)) {
+				?>
+					<table class="table" id="languages">
+						<tr class="heading_row">
+							<td class="icon">&nbsp;</td>
+							<td><span><?php $this->_("AdminToolsPlugin.languages.language");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.languages.status");?></span></td>
+							<td><span><?php $this->_("AdminToolsPlugin.languages.iso");?></span></td>
+							<td class="last"><span><?php $this->_("AdminToolsPlugin.languages.options");?></span></td>
+						</tr>
+						<?php
+						if ($this->Html->ifSet($languages, false)) {
+							$i = 0;
+							foreach ($languages as $language) {
+						?>
+						<tr<?php echo ($i++%2 == 1) ? " class=\"odd_row\"" : "";?>>
+							<td class="icon"><div class="<?php echo $this->Html->_($language->installed, true) ? "active" : "inactive";?>">&nbsp;</div></td>
+							<td><?php $this->Html->_($language->name);?></td>
+							<td><?php $this->_("AdminToolsPlugin.languages." . ($language->installed ? "installed" : "notinstalled" ) );?></td>
+							<td><?php $this->Html->_($language->code);?></td>
+							<td class="last"><a href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_languages/check/" . $this->Html->ifSet($language->code) );?>" ><?php $this->_("AdminToolsPlugin.languages.check");?></a></td>
+						</tr>
+						<?php
+							}
+							unset($i);
+						}
+						?>
+					</table>
+				<?php
+				}
+				else {
+				?>		
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.languages.empty");?>
+						</div>
+					</div>
+				<?php
+				}
+				?>
+			</div>
+		</div>
+		<?php
+		$this->Widget->end();
+		?>	
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a.manage[rel]').blestaModalConfirm({base_url: '<?php echo $this->Html->safe($this->base_uri);?>', close: '<?php $this->_("AppController.modal.text_close");?>', submit: true});
+	});
+</script>	
