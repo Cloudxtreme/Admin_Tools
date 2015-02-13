@@ -85,8 +85,12 @@ class AdminLanguages extends AdminUtilsController {
 	 */
     public function check() {
 		
+		if (!isset($this->get[0]))
+			$this->redirect($this->base_uri . "plugin/admin_utils/admin_languages/"  );	
+		
 		$languages = $this->UtilLanguages->CheckLang($this->get[0]);
 		
+		$this->set("language", $this->get[0]);
 		$this->set("languages", $languages);
 		$this->set("tabs", $this->Tabs);
     }	

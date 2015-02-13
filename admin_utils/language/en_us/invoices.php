@@ -15,19 +15,25 @@ $lang['AdminToolsPlugin.invoices.box_title.deleteinvoice'] = "Delete Invoice";
 $lang['AdminToolsPlugin.invoices.moveinvoice'] = "Move Invoice";
 $lang['AdminToolsPlugin.invoices.deleteinvoice'] = "Delete Invoice";
 
-// Services
+// Invoices
 $lang['AdminToolsPlugin.invoices.descriptions'] = "Select Wich Action You want on the Links Above!";
+$lang['AdminToolsPlugin.invoices.index.eu_invoicing'] = "Enable EU Invoicing";
+$lang['AdminToolsPlugin.invoices.index.correct_dateinvoice'] = "Correct Date For New Invoice";
+$lang['AdminToolsPlugin.invoices.index.correct_dateinvoice'] = "Correct Date For New Invoice";
+$lang['AdminToolsPlugin.invoices.index.last_proforma_id'] = "Next Proforma ID";
+$lang['AdminToolsPlugin.invoices.index.last_proforma_id.info'] = "DO NOT CHANGE THIS UNTIL YOU KNOW WHAT YOUR ARE DOING ";
+$lang['AdminToolsPlugin.invoices.index.no_proforma'] = "The System has a standard Invoicing System (NO PROFORMA).";
 
-
-// $lang['AdminToolsPlugin.invoices.total_invoices'] = "Total Services : ";
-// $lang['AdminToolsPlugin.invoices.total_invoices'] = "Total Invoices : ";
 
 
 
 //	error
 
 //	success
+$lang['AdminToolsPlugin.invoices.!success.eu_invoicing_saved'] = "Settings has Been Saved .. ";
 
-// Buttons 
+//  Buttons 
+$lang['AdminToolsPlugin.invoices.submit_save'] = "Save ";
+$lang['AdminToolsPlugin.invoices.submit_cancel'] = "Cancel ";
 
 ?>

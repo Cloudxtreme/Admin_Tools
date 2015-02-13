@@ -31,6 +31,10 @@ $lang['AdminToolsPlugin.languages.notinstalled'] = "Not Installed";
 $lang['AdminToolsPlugin.languages.missed'] = "( %1s  Missed Phrases )";
 $lang['AdminToolsPlugin.languages.vars'] = "Phrase Var";
 $lang['AdminToolsPlugin.languages.value'] = "Phrase Value";
+$lang['AdminToolsPlugin.languages.core'] = "Core Languages ";
+$lang['AdminToolsPlugin.languages.plugins'] = "Plugins Languages ";
+$lang['AdminToolsPlugin.languages.modules'] = "Modules Languages ";
+$lang['AdminToolsPlugin.languages.components'] = "Components Languages ";
 
 
 //	error

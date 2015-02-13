@@ -5,20 +5,49 @@
 		$this->Widget->setStyleSheet($this->view_dir . "css/styles.css");		
 		$this->Widget->setTabs($tabs);		
 		$this->Widget->create($this->_("AdminToolsPlugin.invoices.page_title", true));
+		$this->Form->create();	
 		?>
 		<div class="pad">
 			<div class="inner">
-				<?php echo $this->Html->ifSet($navigationlinks);?>			
-
-				<div class="empty_section">
-					<div class="empty_box">					
-						<?php $this->_("AdminToolsPlugin.invoices.descriptions");?>
+				<?php echo $this->Html->ifSet($navigationlinks);
+				
+				if ($this->Html->ifSet($inv_types)) {				 
+				?>
+				<ul>							
+					<li>
+						<?php $this->Form->fieldCheckbox("eu_invoicing", "1", ($this->Html->ifSet($vars['eu_invoicing'], "0") == "1"), array('id'=>"eu_invoicing"));?>						
+						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.eu_invoicing", true), "eu_invoicing", array('class'=>"inline"));?>
+					</li>
+					<li>
+						<?php $this->Form->fieldCheckbox("correct_dateinvoice", "1", ($this->Html->ifSet($vars['correct_dateinvoice'], "0") == "1"), array('id'=>"correct_dateinvoice"));?>					
+						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.correct_dateinvoice", true), "correct_dateinvoice", array('class'=>"inline"));?>
+					</li>							
+					<li>			
+						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.last_proforma_id", true), "last_proforma_id", array('class'=>"inline"));?>
+						<?php $this->Form->fieldText("last_proforma_id", $this->Html->ifSet($vars['last_proforma_id']), array('id' => "last_proforma_id"));?>
+						<span class="icon exclamation"></span>
+						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.last_proforma_id.info", true), "last_proforma_id", array('class'=>"inline"));?>
+					</li>						
+				<ul>				
+				<div class="button_row">
+					<a class="btn_right submit" href=""><?php $this->_("AdminToolsPlugin.invoices.submit_save");?></a>
+					<a class="btn_right" href="<?php echo $this->Html->safe($this->base_uri . "plugin/admin_utils/admin_invoices/");?>"><?php $this->_("AdminToolsPlugin.invoices.submit_cancel");?></a>
+				</div>
+				<?php
+				}
+				else {
+				?>		
+					<div class="empty_section">
+						<div class="empty_box">					
+							<?php $this->_("AdminToolsPlugin.invoices.index.no_proforma");?>
+						</div>
 					</div>
-				</div>
-					
-				</div>
+				<?php
+				}
+				?>
 			</div>
 		</div>	
 		<?php
+		$this->Form->end();
 		$this->Widget->end();
 		?>

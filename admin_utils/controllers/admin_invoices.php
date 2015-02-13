@@ -40,7 +40,30 @@ class AdminInvoices extends AdminUtilsController {
 	 * Returns the view to be rendered when managing this plugin
 	 */
     public function index() {
+	
+		$inv_types = false ;
+		$this->components(array("SettingsCollection"));
+		$settings = $this->SettingsCollection->fetchSettings($this->Companies, $this->company_id);
+		
+		if ($settings['inv_type'] == "proforma") {
+			$inv_types = true ;
+				
+			$this->uses(array("Companies"));
+			$UtilSecuritySettings = $this->Companies->getSetting($this->company_id , "AdminUtilsPluginInvoicing");
+			$vars  = unserialize($UtilSecuritySettings->value);
 
+			if (!empty($this->post)) {
+						
+				$this->Companies->setSetting($this->company_id , "AdminUtilsPluginInvoicing", serialize($this->post));
+				$this->setMessage("success", Language::_("AdminToolsPlugin.invoices.!success.eu_invoicing_saved", true) , false, null, false);				
+				$vars = (array)$this->post ;
+				
+			}
+			
+			$this->set("vars", $vars );
+		}
+		
+		$this->set("inv_types", $inv_types );
 		$this->set("tabs", $this->Tabs);		
 		$this->set("navigationlinks", $this->NavigationLinks);	
     }

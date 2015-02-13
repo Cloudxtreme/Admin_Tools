@@ -34,13 +34,6 @@ class AdminUtilsPlugin extends Plugin {
 		try {
 			$value = array('ip_restriction' => false , 'block_access' => false , 'allowed_ips'=> null ,  'blocked_ips'=> null , 'uninstall_plugins'=> true , 'stopforumspam_check'=> true , 'block_duplicate'=> false , 'route_admin'=> null);
 			$this->Companies->setSetting($this->company_id, "AdminUtilsPlugin", serialize($value) );
-			
-			// V 2.2.0
-			Loader::loadModels($this, array("admin_utils.UtilInvoices"));			
-			$proforma_id = $this->UtilInvoices->GetLastProformaID();
-			$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false );
-			$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($invoices) );
-
 		}
 		catch (Exception $e) {
 			// Error dropping... no permission?
@@ -67,16 +60,8 @@ class AdminUtilsPlugin extends Plugin {
 				// Add settings to databse 
 				$value = array('ip_restriction' => false , 'block_access' => false , 'allowed_ips'=> null ,  'blocked_ips'=> null , 'uninstall_plugins'=> true , 'stopforumspam_check'=> true , 'block_duplicate'=> false , 'route_admin'=> null);
 				$this->Companies->setSetting($this->company_id, "AdminUtilsPlugin", serialize($value) );				
-			}
 
-			// Upgrade to 1.6.0
-			if (version_compare($current_version, "2.2.0", "<")) {
-				Loader::loadModels($this, array("admin_utils.UtilInvoices"));			
-				$proforma_id = $this->UtilInvoices->GetLastProformaID();
-				$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false );
-				$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($invoices) );
-			}
-			
+			}					
 		}
 	}
 	
@@ -89,7 +74,6 @@ class AdminUtilsPlugin extends Plugin {
 	public function uninstall($plugin_id, $last_instance) {
 		try {
 			$this->Companies->unsetSetting($this->company_id , "AdminUtilsPlugin");
-			$this->Companies->unsetSetting($this->company_id , "AdminUtilsPluginInvoicing");
 		}
 		catch (Exception $e) {
 			// Error dropping... no permission?
@@ -103,41 +87,31 @@ class AdminUtilsPlugin extends Plugin {
             array(
                 'event' => "Appcontroller.structure",
                 'callback' => array("this", "StructureAdminTools")
-            ),		
+            ), 
 			array(
                 'event' => "Appcontroller.preAction",
                 'callback' => array("this", "preActionAdminTools")
-            ),
-            array(
-                'event' => "Invoices.add",
-                'callback' => array("this", "InvoicesaddAdminTools")
-            ), 
-            array(
-                'event' => "Invoices.edit",
-                'callback' => array("this", "InvoiceseditAdminTools")
-            ), 			
-            array(
-                'event' => "Invoices.setClosed",
-                'callback' => array("this", "InvoicessetClosedAdminTools")
-            )			
+            )
             // Add multiple events here
         );
     }
 	
     public function preActionAdminTools($event) {
 	
-		/* if (!isset( $this->Companies )) {
-			$this->uses( array( 'Companies' ) );
-		}
+		// if (!isset( $this->Companies )) {
+			// $this->uses( array( 'Companies' ) );
+		// }
 	
-		Configure::set( 'Blesta.language', $this->Companies->getSetting( Configure::get( 'Blesta.company_id' ), 'language' )->value );
-		Language::setlang( Configure::get('Blesta.language' )); */
+		// Configure::set( 'Blesta.language', $this->Companies->getSetting( Configure::get( 'Blesta.company_id' ), 'language' )->value );
+		// Language::setlang( Configure::get( 'Blesta.language' ) );
 			
 		if (!isset($this->Session)) 
 			Loader::loadComponents($this, array("Session"));	
 		
 		$this->Session->write("language", "fr_fr");
-		Language::setlang($this->Session->read('language'));
+		Language::setlang( $this->Session->read('language') );
+		
+		Loader::loadModels($this, array("admin_utils.UtilSecurity"));	
 		
 		Loader::loadModels($this, array("admin_utils.UtilSecurity"));		
 		
@@ -159,25 +133,6 @@ class AdminUtilsPlugin extends Plugin {
 		// Nothing TODO NOW .
 	}		
 
-    public function InvoicesaddAdminTools($event) {
-		Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
-		$params = $event->getParams();
-		$invoice_id = $params['invoice_id'];
-		$this->UtilInvoices->EuInvoicing($invoice_id);		
-	}
-
-    public function InvoiceseditAdminTools($event) {
-		// TODO		
-		Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
-		$params = $event->getParams();
-		$invoice_id = $params['invoice_id'];
-		$this->UtilInvoices->EuInvoicing($invoice_id);			
-	}
-	
-    public function InvoicessetClosedAdminTools($event) {
-		// TODO
-	}
-	
     /**
      * Returns all actions to be configured for this widget (invoked after install() or upgrade(), overwrites all existing actions)
      *

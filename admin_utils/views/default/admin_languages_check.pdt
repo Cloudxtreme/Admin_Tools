@@ -14,7 +14,12 @@
 				<?php		
 				if ($this->Html->ifSet($languages)) {
 				?>
-					<table class="table" id="languages">
+				
+					<div class="title_row first ">
+						<h3><?php $this->_("AdminToolsPlugin.languages.core") ; echo  $this->Html->ifSet($language) ;?></h3>
+					</div>
+				
+					<table class="table"  id="languages">
 						<tr class="heading_row">
 							<td><span><?php $this->_("AdminToolsPlugin.languages.original");?></span></td>
 							<td class="icon">&nbsp;</td>
@@ -65,6 +70,20 @@
 						}
 						?>
 					</table>
+					
+					<div class="title_row first">
+						<h3><?php $this->_("AdminToolsPlugin.languages.plugins");?></h3>
+					</div>
+					
+					
+					<div class="title_row first">
+						<h3><?php $this->_("AdminToolsPlugin.languages.modules");?></h3>
+					</div>
+					
+					<div class="title_row first">
+						<h3><?php $this->_("AdminToolsPlugin.languages.components");?></h3>
+					</div>
+					
 				<?php
 				}
 				else {
