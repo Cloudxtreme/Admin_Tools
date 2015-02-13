@@ -1,7 +1,9 @@
 Admin_Tools
 ===========
 
-
+2.2.0
+-add proforma invoice sequencial numbering option.
+-add new events handler .
 2.1.0
 -add language validator 
 2.0.0
