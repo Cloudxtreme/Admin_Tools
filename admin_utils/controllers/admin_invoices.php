@@ -40,30 +40,30 @@ class AdminInvoices extends AdminUtilsController {
 	 * Returns the view to be rendered when managing this plugin
 	 */
     public function index() {
-	
-		$inv_types = false ;
+		
+		$this->uses(array("admin_utils.UtilInvoices"));
+		$proforma_id = $this->UtilInvoices->GetLastProformaID();
+		
 		$this->components(array("SettingsCollection"));
 		$settings = $this->SettingsCollection->fetchSettings($this->Companies, $this->company_id);
+				
 		
-		if ($settings['inv_type'] == "proforma") {
-			$inv_types = true ;
 				
-			$this->uses(array("Companies"));
-			$UtilSecuritySettings = $this->Companies->getSetting($this->company_id , "AdminUtilsPluginInvoicing");
-			$vars  = unserialize($UtilSecuritySettings->value);
-
-			if (!empty($this->post)) {
-						
-				$this->Companies->setSetting($this->company_id , "AdminUtilsPluginInvoicing", serialize($this->post));
-				$this->setMessage("success", Language::_("AdminToolsPlugin.invoices.!success.eu_invoicing_saved", true) , false, null, false);				
-				$vars = (array)$this->post ;
-				
-			}
+		$this->uses(array("Companies"));
+		$UtilSecuritySettings = $this->Companies->getSetting($this->company_id , "AdminUtilsPluginInvoicing");
+		$this->UtilSecuritySettings = unserialize($UtilSecuritySettings->value);
+		$vars  = $this->UtilSecuritySettings ;
+		
+		if (!empty($this->post)) {
+					
+			$this->Companies->setSetting($this->company_id , "AdminUtilsPluginInvoicing", serialize($this->post));
+			$this->setMessage("success", Language::_("AdminToolsPlugin.invoices.!success.eu_invoicing_saved", true) , false, null, false);				
+			$vars = (array)$this->post ;
 			
-			$this->set("vars", $vars );
 		}
 		
-		$this->set("inv_types", $inv_types );
+		$this->set("proforma_id", $proforma_id );
+		$this->set("vars", $vars );
 		$this->set("tabs", $this->Tabs);		
 		$this->set("navigationlinks", $this->NavigationLinks);	
     }

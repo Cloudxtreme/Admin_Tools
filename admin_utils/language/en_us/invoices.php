@@ -17,11 +17,12 @@ $lang['AdminToolsPlugin.invoices.deleteinvoice'] = "Delete Invoice";
 
 // Invoices
 $lang['AdminToolsPlugin.invoices.descriptions'] = "Select Wich Action You want on the Links Above!";
+$lang['AdminToolsPlugin.invoices.index.save_invoice'] = "Save Invoice as PDF file when PAID Totally";
 $lang['AdminToolsPlugin.invoices.index.eu_invoicing'] = "Enable EU Invoicing";
 $lang['AdminToolsPlugin.invoices.index.correct_dateinvoice'] = "Correct Date For New Invoice";
 $lang['AdminToolsPlugin.invoices.index.correct_dateinvoice'] = "Correct Date For New Invoice";
 $lang['AdminToolsPlugin.invoices.index.last_proforma_id'] = "Next Proforma ID";
-$lang['AdminToolsPlugin.invoices.index.last_proforma_id.info'] = "DO NOT CHANGE THIS UNTIL YOU KNOW WHAT YOUR ARE DOING ";
+$lang['AdminToolsPlugin.invoices.index.last_proforma_id.info'] = "DO NOT CHANGE THIS UNTIL YOU KNOW WHAT YOUR ARE DOING , THE NEXT ID IN THE SYSTEM IS :  %1s ";
 $lang['AdminToolsPlugin.invoices.index.no_proforma'] = "The System has a standard Invoicing System (NO PROFORMA).";
 
 

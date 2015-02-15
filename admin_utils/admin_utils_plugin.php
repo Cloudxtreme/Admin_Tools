@@ -38,7 +38,7 @@ class AdminUtilsPlugin extends Plugin {
 			// V 2.2.0
 			Loader::loadModels($this, array("admin_utils.UtilInvoices"));			
 			$proforma_id = $this->UtilInvoices->GetLastProformaID();
-			$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false );
+			$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false , 'save_invoice' => false );
 			$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($invoices) );
 
 		}
@@ -46,8 +46,7 @@ class AdminUtilsPlugin extends Plugin {
 			// Error dropping... no permission?
 			$this->Input->setErrors(array('db'=> array('create'=>$e->getMessage())));
 			return;
-		}		
-			
+		}
 	}
 	
     /**
@@ -69,13 +68,23 @@ class AdminUtilsPlugin extends Plugin {
 				$this->Companies->setSetting($this->company_id, "AdminUtilsPlugin", serialize($value) );				
 			}
 
-			// Upgrade to 1.6.0
+			// Upgrade to 2.2.0
 			if (version_compare($current_version, "2.2.0", "<")) {
 				Loader::loadModels($this, array("admin_utils.UtilInvoices"));			
 				$proforma_id = $this->UtilInvoices->GetLastProformaID();
-				$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false );
+				$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false , 'save_invoice' => false);
 				$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($invoices) );
 			}
+			
+			// Upgrade to 2.3.0
+			if (version_compare($current_version, "2.3.0", "<")) {
+				$UtilSecuritySettings = $this->Companies->getSetting($this->company_id , "AdminUtilsPluginInvoicing");
+				$invoices = unserialize($UtilSecuritySettings->value);				
+				$new_set['save_invoice'] = false ; 
+				$result = array_merge($invoices , $new_set);				
+				$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($result) );
+			}
+			
 			
 		}
 	}
@@ -133,11 +142,11 @@ class AdminUtilsPlugin extends Plugin {
 		Configure::set( 'Blesta.language', $this->Companies->getSetting( Configure::get( 'Blesta.company_id' ), 'language' )->value );
 		Language::setlang( Configure::get('Blesta.language' )); */
 			
-		if (!isset($this->Session)) 
-			Loader::loadComponents($this, array("Session"));	
+		// if (!isset($this->Session)) 
+			// Loader::loadComponents($this, array("Session"));	
 		
-		$this->Session->write("language", "fr_fr");
-		Language::setlang($this->Session->read('language'));
+		// $this->Session->write("language", "fr_fr");
+		// Language::setlang($this->Session->read('language'));
 		
 		Loader::loadModels($this, array("admin_utils.UtilSecurity"));		
 		
@@ -163,19 +172,22 @@ class AdminUtilsPlugin extends Plugin {
 		Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
 		$params = $event->getParams();
 		$invoice_id = $params['invoice_id'];
-		$this->UtilInvoices->EuInvoicing($invoice_id);		
+		$this->UtilInvoices->Invoicesadd($invoice_id);		
 	}
 
     public function InvoiceseditAdminTools($event) {
-		// TODO		
-		Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
-		$params = $event->getParams();
-		$invoice_id = $params['invoice_id'];
-		$this->UtilInvoices->EuInvoicing($invoice_id);			
+		// TODO
+		// Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
+		// $params = $event->getParams();
+		// $invoice_id = $params['invoice_id'];
+		// $this->UtilInvoices->Invoicesedit($invoice_id);		
 	}
 	
     public function InvoicessetClosedAdminTools($event) {
-		// TODO
+		Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
+		$params = $event->getParams();
+		$invoice_id = $params['invoice_id'];
+		$this->UtilInvoices->setClosed($invoice_id);
 	}
 	
     /**
