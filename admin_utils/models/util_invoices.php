@@ -72,19 +72,19 @@ class UtilInvoices extends AdminUtilsModel {
 	 * 
 	 */
 	public function setClosed($invoice_id) {
-		Loader::loadComponents($this, array("SettingsCollection"));
-		$settings = $this->SettingsCollection->fetchSettings($this->Companies, $this->company_id);
+		// Loader::loadComponents($this, array("SettingsCollection"));
+		// $settings = $this->SettingsCollection->fetchSettings($this->Companies, $this->company_id);
 
-		if ($settings['inv_type'] == "proforma") {
-			$UtilSecuritySettings = $this->Companies->getSetting($this->company_id , "AdminUtilsPluginInvoicing");
-			$vars  = unserialize($UtilSecuritySettings->value);
+		// if ($settings['inv_type'] == "proforma") {
+			// $UtilSecuritySettings = $this->Companies->getSetting($this->company_id , "AdminUtilsPluginInvoicing");
+			// $vars  = unserialize($UtilSecuritySettings->value);
 
-			if ($vars['correct_dateinvoice']) {
-				$invoice =   (array) $this->Invoices->get($invoice_id);				
-				$this->Record->where("id", "=", $invoice['id'])->update("invoices", array("date_billed"=> $invoice['date_closed']));
-			}
+			// if ($vars['correct_dateinvoice']) {
+				// $invoice =   (array) $this->Invoices->get($invoice_id);				
+				// $this->Record->where("id", "=", $invoice['id'])->update("invoices", array("date_billed"=> $invoice['date_closed']));
+			// }
 			
-		}
+		// }
 		
 		// should here add condition to save pdf file
 		$this->SaveInvoiceCopy($invoice_id , $vars['correct_dateinvoice']);		

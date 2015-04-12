@@ -16,7 +16,7 @@ class UtilLanguages extends AdminUtilsModel {
 	public function __construct() {
 		parent::__construct();
 		
-		Language::loadLang("cms", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
+		// Language::loadLang("cms", null, PLUGINDIR . "admin_utils" . DS . "language" . DS);
 		
 		$diffArray = array();
 		$diffResult = array();
@@ -72,5 +72,7 @@ class UtilLanguages extends AdminUtilsModel {
 
 	}	
 	
+	
+
 }
 ?>

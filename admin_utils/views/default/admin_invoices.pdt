@@ -19,10 +19,6 @@
 						<?php $this->Form->fieldCheckbox("eu_invoicing", "true", ($this->Html->ifSet($vars['eu_invoicing'], "false") == "true"), array('id'=>"eu_invoicing"));?>						
 						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.eu_invoicing", true), "eu_invoicing", array('class'=>"inline"));?>
 					</li>
-					<li>
-						<?php $this->Form->fieldCheckbox("correct_dateinvoice", "true", ($this->Html->ifSet($vars['correct_dateinvoice'], "false") == "true"), array('id'=>"correct_dateinvoice"));?>					
-						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.correct_dateinvoice", true), "correct_dateinvoice", array('class'=>"inline"));?>
-					</li>
 					<li>			
 						<?php $this->Form->label($this->_("AdminToolsPlugin.invoices.index.last_proforma_id", true), "last_proforma_id", array('class'=>"inline"));?>
 						<?php $this->Form->fieldText("last_proforma_id", $this->Html->ifSet($vars['last_proforma_id']), array('id' => "last_proforma_id"));?>

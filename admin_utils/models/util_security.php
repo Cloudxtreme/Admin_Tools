@@ -88,7 +88,7 @@ class UtilSecurity extends AdminUtilsModel {
 					'username' => $_POST['first_name'] . " ". $_POST['last_name'] // really i don't see a benifict from checking this data !!!!
 				);
 				
-				$spamcheck = $this->StopForumSpamSheck( $args );
+				$spamcheck = $this->StopForumSpamSheck($args);
 
 				if ($spamcheck) {
 					// header( "refresh:5;url=".$_SERVER['HTTP_REFERER']."" ); 
@@ -247,6 +247,24 @@ class UtilSecurity extends AdminUtilsModel {
 			}
 		}
     }	
+	
+	public function SelectLanguage(){
+	
+		if ($this->CheckSection() != "admin") {
+		
+			if (!isset($this->Session)) 
+				Loader::loadComponents($this, array("Session"));	
+					
+				
+			if (isset($_GET['set_language']) ) {
+				$this->Session->write("language", $_GET['set_language']);				
+			}
+				
+			if ($this->Session->read('language'))
+				Language::setlang($this->Session->read('language'));
+
+		}
+	}
 	
 	/**
 	 * Check a given IP and email against the stopforumspam Database

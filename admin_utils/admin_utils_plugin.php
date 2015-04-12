@@ -38,7 +38,7 @@ class AdminUtilsPlugin extends Plugin {
 			// V 2.2.0
 			Loader::loadModels($this, array("admin_utils.UtilInvoices"));			
 			$proforma_id = $this->UtilInvoices->GetLastProformaID();
-			$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false , 'save_invoice' => false );
+			$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , /*'correct_dateinvoice' => false ,*/ 'save_invoice' => false );
 			$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($invoices) );
 
 		}
@@ -72,7 +72,7 @@ class AdminUtilsPlugin extends Plugin {
 			if (version_compare($current_version, "2.2.0", "<")) {
 				Loader::loadModels($this, array("admin_utils.UtilInvoices"));			
 				$proforma_id = $this->UtilInvoices->GetLastProformaID();
-				$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , 'correct_dateinvoice' => false , 'save_invoice' => false);
+				$invoices = array('eu_invoicing' => false , 'last_proforma_id' => $proforma_id , /*'correct_dateinvoice' => false ,*/ 'save_invoice' => false);
 				$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($invoices) );
 			}
 			
@@ -84,8 +84,7 @@ class AdminUtilsPlugin extends Plugin {
 				$result = array_merge($invoices , $new_set);				
 				$this->Companies->setSetting($this->company_id, "AdminUtilsPluginInvoicing", serialize($result) );
 			}
-			
-			
+
 		}
 	}
 	
@@ -121,10 +120,10 @@ class AdminUtilsPlugin extends Plugin {
                 'event' => "Invoices.add",
                 'callback' => array("this", "InvoicesaddAdminTools")
             ), 
-            array(
-                'event' => "Invoices.edit",
-                'callback' => array("this", "InvoiceseditAdminTools")
-            ), 			
+            // array(
+                // 'event' => "Invoices.edit",
+                // 'callback' => array("this", "InvoiceseditAdminTools")
+            // ), 			
             array(
                 'event' => "Invoices.setClosed",
                 'callback' => array("this", "InvoicessetClosedAdminTools")
@@ -134,34 +133,28 @@ class AdminUtilsPlugin extends Plugin {
     }
 	
     public function preActionAdminTools($event) {
-	
-		/* if (!isset( $this->Companies )) {
-			$this->uses( array( 'Companies' ) );
-		}
-	
-		Configure::set( 'Blesta.language', $this->Companies->getSetting( Configure::get( 'Blesta.company_id' ), 'language' )->value );
-		Language::setlang( Configure::get('Blesta.language' )); */
-			
-		// if (!isset($this->Session)) 
-			// Loader::loadComponents($this, array("Session"));	
-		
-		// $this->Session->write("language", "fr_fr");
-		// Language::setlang($this->Session->read('language'));
-		
+
+		/*  */
+
 		Loader::loadModels($this, array("admin_utils.UtilSecurity"));		
-		
+
 		// Call Block IPS for Admin Side
 		$this->UtilSecurity->ipRestrictions();
-		
+
 		// Block access for uninstalled plugins
 		$this->UtilSecurity->UninstallPlugins();
-		
-		// Stop Spam users
-		$this->UtilSecurity->StopSpam();		
-		
-		// Block registration for duplicated email
-		$this->UtilSecurity->BlockDuplicate();		
 
+		// Stop Spam users
+		$this->UtilSecurity->StopSpam();
+
+		// Block registration for duplicated email
+		$this->UtilSecurity->BlockDuplicate();
+		
+		//print_r($this->post);
+		// Add Language Selection  to clients
+		$this->UtilSecurity->SelectLanguage();
+
+		
 	}	
  	
     public function StructureAdminTools($event) {
@@ -175,13 +168,9 @@ class AdminUtilsPlugin extends Plugin {
 		$this->UtilInvoices->Invoicesadd($invoice_id);		
 	}
 
-    public function InvoiceseditAdminTools($event) {
-		// TODO
-		// Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
-		// $params = $event->getParams();
-		// $invoice_id = $params['invoice_id'];
-		// $this->UtilInvoices->Invoicesedit($invoice_id);		
-	}
+    // public function InvoiceseditAdminTools($event) {
+
+	// }
 	
     public function InvoicessetClosedAdminTools($event) {
 		Loader::loadModels($this, array("admin_utils.UtilInvoices"));		
